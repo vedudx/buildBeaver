@@ -1,6 +1,6 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import React, { useMemo } from "react";
 import { useIntake } from "@/entities/intake/model/intake-context";
 import { useFormData } from "@/entities/form/model/form-context";
 import type {
@@ -50,6 +50,11 @@ const fieldHelp: Partial<Record<FormFieldKey, string>> = {
 };
 
 const stepPanelCopy: Record<string, { title: string; blurb: string }> = {
+  structure: {
+    title: "Your structure and registration details",
+    blurb:
+      "Choose your business structure and enter your name and address. Generate copy-ready output to use when you register with BC.",
+  },
   register_business: {
     title: "Registration details",
     blurb:
@@ -89,14 +94,18 @@ export function FormAssistant({ step }: FormAssistantProps) {
     ownership_type: formData.ownership_type,
     address:
       formData.address ||
-      (intakeData.location ? `${intakeData.location}, Canada` : ""),
+      (intakeData.city
+        ? `${intakeData.city}, BC, Canada`
+        : intakeData.location
+          ? `${intakeData.location}, Canada`
+          : ""),
     start_date: formData.start_date,
     gst_threshold: formData.gst_threshold,
   };
 
-  const [output, setOutput] = useState("");
-  const [copied, setCopied] = useState(false);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [output, setOutput] = React.useState("");
+  const [copied, setCopied] = React.useState(false);
+  const [isGenerating, setIsGenerating] = React.useState(false);
 
   const fields = useMemo(() => step.formFields ?? [], [step.formFields]);
 

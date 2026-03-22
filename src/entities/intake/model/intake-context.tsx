@@ -9,8 +9,9 @@ type IntakeContextValue = {
 };
 
 const initialIntakeData: IntakeData = {
-  businessType: "bakery",
+  businessType: "",
   location: "British Columbia",
+  city: "",
   businessName: "",
 };
 

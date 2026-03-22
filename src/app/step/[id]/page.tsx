@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FormAssistant } from "@/features/form-assistant/ui/form-assistant";
+import { LicensesChecklist } from "@/features/licenses/ui/licenses-checklist";
 import { FormsEmbed } from "@/shared/ui/forms-embed";
 import { getStepById } from "@/shared/constants/steps";
 
@@ -51,16 +52,7 @@ export default async function StepPage({ params }: StepPageProps) {
 
           {step.type === "form" ? <FormAssistant step={step} /> : null}
 
-          {step.type === "semi" ? (
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900">Checklist</h3>
-              <ul className="mt-3 list-disc space-y-2 pl-5 text-gray-700">
-                <li>Identify permit categories for your location.</li>
-                <li>Prepare supporting documents early.</li>
-                <li>Track expiration and renewal dates.</li>
-              </ul>
-            </div>
-          ) : null}
+          {step.type === "semi" ? <LicensesChecklist /> : null}
 
           {step.type === "info" && !hasForms ? (
             <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">

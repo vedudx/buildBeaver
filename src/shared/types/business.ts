@@ -1,6 +1,7 @@
 export type IntakeData = {
   businessType: string;
   location: string;
+  city: string;
   businessName: string;
 };
 
