@@ -8,6 +8,17 @@ export type OwnershipType = "sole proprietorship" | "corporation";
 
 export type StepType = "info" | "semi" | "form";
 
+export type PermitRequirement = {
+  id: string;
+  title: string;
+  description: string;
+  authority: string;
+  category: "mandatory" | "conditional" | "environmental" | "municipal" | "provincial" | "federal";
+  links: string[];
+  estimatedCost?: string;
+  estimatedTimeline?: string;
+};
+
 export type StepConfig = {
   id: string;
   title: string;
@@ -19,4 +30,5 @@ export type StepConfig = {
   };
   type: StepType;
   formFields?: Array<"business_name" | "ownership_type" | "address" | "start_date">;
+  permits?: PermitRequirement[];
 };
