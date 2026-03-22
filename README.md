@@ -6,36 +6,49 @@
 
 ---
 
+## Screenshots
+
+| Landing                           | Roadmap                           | Finish                           |
+| --------------------------------- | --------------------------------- | -------------------------------- |
+| ![Landing page](public/web_1.png) | ![Roadmap page](public/web_2.png) | ![Finish page](public/web_3.png) |
+
 ## Overview
 
-BuildBeaver walks users through a 6-step business setup roadmap, providing clear guidance and copy-ready form outputs for key registration steps.
+BuildBeaver walks users through an 8-step business setup roadmap, providing clear guidance and copy-ready form outputs for each registration step. No signup required — data stays in the browser.
 
 ## User Flow
 
 1. **Landing** — Brief intro and "Get Started" prompt
 2. **Intake** — User enters business type, location, and name
-3. **Roadmap** — Checklist overview of all 6 steps
+3. **Roadmap** — Checklist overview of all 8 steps with progress tracking
 4. **Step Pages** — Detailed guidance per step, with an interactive Form Assistant on registration steps
+5. **Finish** — Congratulations summary with full business profile
 
 ## Steps
 
-| # | Step | Type |
-|---|------|------|
-| 1 | Choose Business Structure | Informational |
-| 2 | Register Business | Form Assistant |
-| 3 | Get Business Number (CRA) | Form Assistant |
-| 4 | Open Business Bank Account | Informational |
-| 5 | Licenses & Permits | Checklist |
-| 6 | Basic Accounting Setup | Informational |
+| #   | Step                              | Type                    |
+| --- | --------------------------------- | ----------------------- |
+| 1   | Choose Business Structure         | Form Assistant          |
+| 2   | Register Business (BC Registries) | Form Assistant          |
+| 3   | Get Business Number (CRA)         | Form Assistant          |
+| 4   | BC PST Registration (eTaxBC)      | Informational           |
+| 5   | WorkSafeBC                        | Informational           |
+| 6   | Open Business Bank Account        | Informational           |
+| 7   | Licenses & Permits                | Checklist (AI-filtered) |
+| 8   | Basic Accounting Setup            | Informational           |
 
-The Form Assistant prefills fields using intake data, generates structured output, and includes a one-click copy feature.
+## Key Features
+
+- **Form Assistant** — Prefills fields using intake data, generates structured copy-ready output
+- **Ask BuildBeaver** — Gemini-powered chat assistant available throughout the roadmap
+- **AI Permit Filtering** — Licenses & Permits step uses Gemini to surface relevant permits by business type and location
+- **No database or auth** — All state lives in React context; nothing is stored server-side
 
 ## Tech Stack
 
-- **Next.js** (App Router)
-- **TypeScript**
+- **Next.js** (App Router, TypeScript)
 - **Tailwind CSS**
-- React state only — no database or authentication
+- **Gemini API** — AI chat and permit filtering
 
 ## Getting Started
 
@@ -46,13 +59,10 @@ npm run dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the app.
 
+Optionally, add a `GEMINI_API_KEY` to `.env.local` to enable live AI features. Without it, the app falls back to a manual prompt-copy workflow via `gemini-stub/`.
 
-Only the pre-existing errors. Here's the flow now:
-  Without `GEMINI_API_KEY`:
-  1. Click "Find permits with Beaver AI"
-  2. The route writes the full prompt to gemini-stub/prompt.txt
-  3. The panel shows step-by-step instructions with the file path
-  4. You copy prompt.txt → paste into gemini.google.com (​https://gemini.google.com​) → copy the JSON response → paste
-     into gemini-stub/response.json
-  5. Click the button again → app loads your response and shows the permit cards
+## Hackathon
 
+Built at the **Cursor Hackathon — Vancouver, 22 March 2026**.
+
+Contributors: [@vedudx](https://github.com/vedudx) · [@idaknow](https://github.com/idaknow) · [@summer-youth](https://github.com/summer-youth) · [@eunmibean](https://github.com/eunmibean) · [@stephanwehner](https://github.com/stephanwehner)
