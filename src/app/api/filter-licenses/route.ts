@@ -47,28 +47,37 @@ export async function POST(req: Request) {
     "Which of these are required or strongly recommended? " +
     'Respond with JSON only: { "relevant": [{ "index": <number>, "reason": "<one sentence>" }, ...] }';
 
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? "");
-  const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash",
-    systemInstruction:
-      "You are a Canadian business compliance expert. " +
-      "Given a business profile and a numbered list of permits/licences, " +
-      "return only the ones that are required or strongly recommended for this specific business. " +
-      "Be strict — exclude anything clearly irrelevant (e.g. a liquor licence for a bakery with no alcohol). " +
-      'Respond with JSON only: { "relevant": [{ "index": <number>, "reason": "<one sentence>" }, ...] }',
-    generationConfig: { responseMimeType: "application/json", temperature: 0.2 },
-  });
+  try {
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? "");
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+      systemInstruction:
+        "You are a Canadian business compliance expert. " +
+        "Given a business profile and a numbered list of permits/licences, " +
+        "return only the ones that are required or strongly recommended for this specific business. " +
+        "Be strict — exclude anything clearly irrelevant. " +
+        'Respond with JSON only: { "relevant": [{ "index": <number>, "reason": "<one sentence>" }, ...] }',
+      generationConfig: { responseMimeType: "application/json", temperature: 0.2 },
+    });
 
-  const result = await model.generateContent(prompt);
-  const raw = result.response.text();
+    const result = await model.generateContent(prompt);
+    const raw = result.response.text();
 
-  const parsed = JSON.parse(raw) as {
-    relevant: Array<{ index: number; reason: string }>;
-  };
+    const parsed = JSON.parse(raw) as {
+      relevant: Array<{ index: number; reason: string }>;
+    };
 
-  const relevantForms: RelevantForm[] = (parsed.relevant ?? [])
-    .filter((r) => r.index >= 0 && r.index < allForms.length)
-    .map((r) => ({ ...allForms[r.index], reason: r.reason }));
+    const relevantForms: RelevantForm[] = (parsed.relevant ?? [])
+      .filter((r) => r.index >= 0 && r.index < allForms.length)
+      .map((r) => ({ ...allForms[r.index], reason: r.reason }));
 
-  return Response.json({ relevantForms } satisfies FilterLicensesResponse);
+    return Response.json({ relevantForms } satisfies FilterLicensesResponse);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    const isQuota = message.includes("429") || message.toLowerCase().includes("quota");
+    return Response.json(
+      { error: isQuota ? "AI service rate limit reached. Please try again shortly." : "AI service error." },
+      { status: isQuota ? 429 : 500 },
+    );
+  }
 }
