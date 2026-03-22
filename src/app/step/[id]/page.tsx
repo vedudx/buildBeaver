@@ -66,6 +66,14 @@ export default async function StepPage({ params }: StepPageProps) {
             </div>
           ) : null}
 
+          {step.recommendations?.length ? (
+            <SourceSupportPanel
+              title="Recommended options"
+              description="Popular business bank accounts in Canada. Compare fees and features before choosing."
+              links={step.recommendations}
+            />
+          ) : null}
+
           {step.sourceLinks?.length && step.type !== "semi" ? (
             <SourceSupportPanel
               title="Official guidance and support"
