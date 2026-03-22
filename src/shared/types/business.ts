@@ -6,6 +6,15 @@ export type IntakeData = {
 
 export type OwnershipType = "sole proprietorship" | "corporation";
 
+export type GstThresholdAnswer = "yes" | "no";
+
+export type FormFieldKey =
+  | "business_name"
+  | "ownership_type"
+  | "address"
+  | "start_date"
+  | "gst_threshold";
+
 export type StepType = "info" | "semi" | "form";
 
 export type StepConfig = {
@@ -18,5 +27,5 @@ export type StepConfig = {
     label: string;
   };
   type: StepType;
-  formFields?: Array<"business_name" | "ownership_type" | "address" | "start_date">;
+  formFields?: FormFieldKey[];
 };
