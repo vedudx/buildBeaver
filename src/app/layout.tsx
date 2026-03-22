@@ -30,6 +30,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <FormDataProvider>
             <ProgressProvider>
               <ActiveFieldProvider>
+                <SiteHeader />
                 {children}
                 <ChatbotButton />
               </ActiveFieldProvider>
