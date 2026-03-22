@@ -68,4 +68,6 @@ export type StepConfig = {
   formFields?: FormFieldKey[];
   sourceLinks?: SourceLink[];
   supportContacts?: SupportContact[];
+  /** Recommended third-party options (e.g. banks, tools) with links */
+  recommendations?: SourceLink[];
 };

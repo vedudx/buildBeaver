@@ -227,6 +227,38 @@ export const STEP_CONFIGS: StepConfig[] = [
     ],
     type: "info",
     sourceLinks: [BC_RESOURCE_HUB],
+    recommendations: [
+      {
+        label: "RBC Digital Choice Business Account",
+        href: "https://www.rbcroyalbank.com/business/accounts/index.html",
+        note: "Low monthly fee ($6), no minimum balance. Good for cost-conscious small businesses.",
+      },
+      {
+        label: "BMO eBusiness Plan",
+        href: "https://www.bmo.com/main/business/accounts/ebusiness-plan/",
+        note: "No monthly fee, unlimited electronic transactions. Ideal for online-first businesses.",
+      },
+      {
+        label: "TD Basic Business Plan",
+        href: "https://www.td.com/ca/en/business-banking/small-business/bank-accounts/basic-business-plan",
+        note: "$5/month for low-volume startups. Pay per transaction after included limit.",
+      },
+      {
+        label: "CIBC Business Accounts",
+        href: "https://www.cibc.com/en/business/accounts.html",
+        note: "Range of plans from basic to unlimited. CDIC-insured options available.",
+      },
+      {
+        label: "Scotiabank Business Bank Accounts",
+        href: "https://www.scotiabank.com/ca/en/small-business/business-banking/business-bank-accounts.html",
+        note: "Right Size, Select, and Basic plans. Compare by transaction volume.",
+      },
+      {
+        label: "Wise Business",
+        href: "https://wise.com/ca/business/",
+        note: "Multi-currency (40+), low FX fees, no monthly fee. Strong for international payments.",
+      },
+    ],
   },
   {
     id: "licenses",
