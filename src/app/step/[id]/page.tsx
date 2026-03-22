@@ -8,7 +8,6 @@ import { SourceSupportPanel } from "@/features/support/ui/source-support-panel";
 import { StepCompleteButton } from "@/features/step/ui/step-complete-button";
 import { StepProgressBar } from "@/features/step/ui/step-progress-bar";
 import { FormsEmbed } from "@/shared/ui/forms-embed";
-import { LicensesPanel } from "@/features/licenses/ui/licenses-panel";
 import { getStepById } from "@/shared/constants/steps";
 
 type StepPageProps = {
@@ -34,61 +33,62 @@ export default async function StepPage({ params }: StepPageProps) {
         <StepProgressBar currentStepId={id} />
       </div>
 
-      <div className="flex flex-col gap-10">
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
-          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">{step.title}</h1>
-          <p className="mt-3 leading-relaxed text-gray-700">{step.shortExplanation}</p>
-          <ul className="mt-4 list-disc space-y-2 pl-5 leading-relaxed text-gray-700">
-            {step.bulletPoints.map((point) => (
-              <li key={point}>{point}</li>
-            ))}
-          </ul>
-          {step.optionalLink ? (
-            <a
-              href={step.optionalLink.href}
-              target="_blank"
-              rel="noreferrer"
-              className="mt-5 inline-block text-sm font-semibold text-red-800 hover:underline"
-            >
-              {step.optionalLink.label}
-            </a>
+      <div className="grid gap-10 lg:grid-cols-2">
+        <div className="flex flex-col gap-10">
+          <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+            <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">{step.title}</h1>
+            <p className="mt-3 leading-relaxed text-gray-700">{step.shortExplanation}</p>
+            <ul className="mt-4 list-disc space-y-2 pl-5 leading-relaxed text-gray-700">
+              {step.bulletPoints.map((point) => (
+                <li key={point}>{point}</li>
+              ))}
+            </ul>
+            {step.optionalLink ? (
+              <a
+                href={step.optionalLink.href}
+                target="_blank"
+                rel="noreferrer"
+                className="mt-5 inline-block text-sm font-semibold text-red-800 hover:underline"
+              >
+                {step.optionalLink.label}
+              </a>
+            ) : null}
+          </section>
+
+          {step.type === "form" ? <FormAssistant step={step} /> : null}
+          {step.type === "semi" ? <LicensesGuidance /> : null}
+          {step.id === "accounting" ? <AccountingGuidance /> : null}
+
+          {step.type === "info" && !hasForms && step.id !== "accounting" ? (
+            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+              <h2 className="text-lg font-semibold text-gray-900">Information</h2>
+              <p className="mt-3 leading-relaxed text-gray-700">
+                This step is guidance-only. Review the details above and proceed when you are ready
+                for the next roadmap item.
+              </p>
+            </div>
           ) : null}
-        </section>
 
-        {step.type === "form" ? <FormAssistant step={step} /> : null}
-        {step.type === "semi" ? <LicensesGuidance /> : null}
-        {step.id === "accounting" ? <AccountingGuidance /> : null}
+          {step.recommendations?.length ? (
+            <SourceSupportPanel
+              title="Recommended options"
+              description="Popular business bank accounts in Canada. Compare fees and features before choosing."
+              links={step.recommendations}
+            />
+          ) : null}
 
-        {step.type === "info" && !hasForms && step.id !== "accounting" ? (
-          <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
-            <h2 className="text-lg font-semibold text-gray-900">Information</h2>
-            <p className="mt-3 leading-relaxed text-gray-700">
-              This step is guidance-only. Review the details above and proceed when you are ready
-              for the next roadmap item.
-            </p>
-          </div>
-        ) : null}
+          {step.sourceLinks?.length && step.type !== "semi" && step.id !== "accounting" ? (
+            <SourceSupportPanel
+              title="Official guidance and support"
+              description="Use these sources to verify requirements and reach the right BC support channel."
+              links={step.sourceLinks}
+              contacts={step.supportContacts}
+            />
+          ) : null}
 
-        {step.recommendations?.length ? (
-          <SourceSupportPanel
-            title="Recommended options"
-            description="Popular business bank accounts in Canada. Compare fees and features before choosing."
-            links={step.recommendations}
-          />
-        ) : null}
+          <StepCompleteButton stepId={id} />
+        </div>
 
-        {step.sourceLinks?.length && step.type !== "semi" && step.id !== "accounting" ? (
-          <SourceSupportPanel
-            title="Official guidance and support"
-            description="Use these sources to verify requirements and reach the right BC support channel."
-            links={step.sourceLinks}
-            contacts={step.supportContacts}
-          />
-        ) : null}
-
-        <StepCompleteButton stepId={id} />
-
-        {/* RIGHT: AI permit finder for licenses, embedded forms for others, or info panel */}
         <div>
           {step.id === "licenses" ? (
             <LicensesPanel />
@@ -104,6 +104,7 @@ export default async function StepPage({ params }: StepPageProps) {
             </div>
           ) : null}
         </div>
+      </div>
     </main>
   );
 }
