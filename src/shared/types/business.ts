@@ -36,6 +36,7 @@ export type StepForm = {
   title: string;
   href: string;
   authority: string;
+  description?: string;
   estimatedCost?: string;
   estimatedTimeline?: string;
   embeddable?: boolean;
