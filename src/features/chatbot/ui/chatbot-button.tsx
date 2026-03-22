@@ -199,6 +199,17 @@ export function ChatbotButton() {
         </div>
       )}
 
+      {/* Help bubble — visible whenever chat is closed */}
+      {!open && (
+        <div className="animate-float pointer-events-none mb-1 flex flex-col items-end">
+          <div className="rounded-2xl bg-white px-4 py-2.5 text-sm font-medium text-slate-700 shadow-lg shadow-slate-900/15 ring-1 ring-slate-100">
+            Ask me if you feel lost 👋
+          </div>
+          {/* Pointer triangle — offset to align with FAB center */}
+          <div className="mr-[20px] h-0 w-0 border-x-8 border-t-8 border-x-transparent border-t-white drop-shadow-sm" />
+        </div>
+      )}
+
       {/* Floating trigger button */}
       <button
         type="button"
