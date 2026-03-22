@@ -1,7 +1,7 @@
 <div align="center">
   <img src="public/logo.png" alt="BuildBeaver logo" width="80" />
   <h1>BuildBeaver</h1>
-  <p>A guided web app that helps users start a business in Canada — from idea to launch.</p>
+  <p>A guided web app that helps users start a business in British Columbia.</p>
 </div>
 
 ---

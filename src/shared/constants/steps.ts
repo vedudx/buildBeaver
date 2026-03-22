@@ -1,3 +1,4 @@
+import { BC_ADVISOR_CONTACT, BC_RESOURCE_HUB, CORE_SUPPORT_LINKS } from "@/shared/constants/resources";
 import type { StepConfig } from "@/shared/types/business";
 
 export const STEP_CONFIGS: StepConfig[] = [
@@ -25,6 +26,15 @@ export const STEP_CONFIGS: StepConfig[] = [
     ],
     type: "form",
     formFields: ["ownership_type", "business_name", "address"],
+    sourceLinks: [
+      BC_RESOURCE_HUB,
+      {
+        label: "Business structure wizard",
+        href: "https://entity-selection-prod.apps.silver.devops.gov.bc.ca/",
+        note: "Official B.C. comparison tool for choosing a business structure.",
+      },
+    ],
+    supportContacts: [BC_ADVISOR_CONTACT],
   },
   {
     id: "register_business",
@@ -60,6 +70,15 @@ export const STEP_CONFIGS: StepConfig[] = [
     ],
     type: "form",
     formFields: ["business_name", "ownership_type", "address"],
+    sourceLinks: [
+      CORE_SUPPORT_LINKS[2],
+      {
+        label: "Choose a business name",
+        href: "https://www2.gov.bc.ca/gov/content/employment-business/business/managing-a-business/starting-a-business/choose-a-business-name",
+        note: "Province guidance on naming, name requests and registration flow.",
+      },
+    ],
+    supportContacts: [BC_ADVISOR_CONTACT],
   },
   {
     id: "business_number",
@@ -91,6 +110,18 @@ export const STEP_CONFIGS: StepConfig[] = [
       "start_date",
       "gst_threshold",
     ],
+    sourceLinks: [
+      {
+        label: "CRA business registration",
+        href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/business-registration.html",
+        note: "Official CRA entry point for BN and program accounts.",
+      },
+      {
+        label: "Get a business number",
+        href: "https://www2.gov.bc.ca/gov/content/employment-business/business/managing-a-business/starting-a-business/get-a-business-number",
+        note: "B.C. guidance on when and how to obtain a business number.",
+      },
+    ],
   },
   {
     id: "bank_account",
@@ -103,6 +134,7 @@ export const STEP_CONFIGS: StepConfig[] = [
       "Set up online banking and expense categories.",
     ],
     type: "info",
+    sourceLinks: [BC_RESOURCE_HUB],
   },
   {
     id: "licenses",
@@ -119,6 +151,20 @@ export const STEP_CONFIGS: StepConfig[] = [
       label: "Find Permits with BizPaL",
     },
     type: "semi",
+    sourceLinks: [
+      CORE_SUPPORT_LINKS[1],
+      {
+        label: "B.C. permits and licences",
+        href: "https://www2.gov.bc.ca/gov/content/employment-business/business/managing-a-business/permits-licences",
+        note: "Provincial permit and licence overview.",
+      },
+      {
+        label: "Mobile business licences",
+        href: "https://www2.gov.bc.ca/gov/content/employment-business/business/managing-a-business/permits-licences/mobile-business-licences",
+        note: "Useful if you operate across participating B.C. municipalities.",
+      },
+    ],
+    supportContacts: [BC_ADVISOR_CONTACT],
   },
   {
     id: "accounting",
@@ -131,6 +177,14 @@ export const STEP_CONFIGS: StepConfig[] = [
       "Plan for GST/HST and year-end filings.",
     ],
     type: "info",
+    sourceLinks: [
+      BC_RESOURCE_HUB,
+      {
+        label: "Small business guide to PST",
+        href: "https://www2.gov.bc.ca/gov/content/taxes/sales-taxes/pst/publications/small-business-guide",
+        note: "Important for businesses selling taxable goods or software in B.C.",
+      },
+    ],
   },
 ];
 

@@ -5,6 +5,20 @@ export type IntakeData = {
   businessName: string;
 };
 
+export type SourceLink = {
+  label: string;
+  href: string;
+  note?: string;
+};
+
+export type SupportContact = {
+  title: string;
+  phone?: string;
+  email?: string;
+  hours?: string;
+  note?: string;
+};
+
 export type OwnershipType = "sole proprietorship" | "corporation";
 
 export type GstThresholdAnswer = "yes" | "no";
@@ -39,4 +53,6 @@ export type StepConfig = {
   forms?: StepForm[];
   type: StepType;
   formFields?: FormFieldKey[];
+  sourceLinks?: SourceLink[];
+  supportContacts?: SupportContact[];
 };
