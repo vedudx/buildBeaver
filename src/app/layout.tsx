@@ -5,6 +5,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import { IntakeProvider } from "@/entities/intake/model/intake-context";
 import { FormDataProvider } from "@/entities/form/model/form-context";
 import { SiteHeader } from "@/shared/ui/site-header";
+import { ChatbotButton } from "@/features/chatbot/ui/chatbot-button";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -30,6 +31,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
             <SiteHeader />
             {children}
           </FormDataProvider>
+          <FormDataProvider>{children}</FormDataProvider>
+          <ChatbotButton />
         </IntakeProvider>
       </body>
     </html>

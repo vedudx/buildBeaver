@@ -1,0 +1,77 @@
+---
+description: BuildBeaver project architecture map, directory conventions, and placement rules for all new code.
+alwaysApply: true
+---
+
+# BuildBeaver — Project Structure
+
+## Architecture Overview
+
+BuildBeaver follows **Feature-Sliced Design (FSD)** for the Next.js frontend, with a completely separate Node.js scraper tool.
+
+```
+buildBeaver/
+├── src/                        # Next.js app (App Router, TypeScript, Tailwind)
+│   ├── app/                    # Route pages and root layout only
+│   │   ├── layout.tsx          # Root layout — providers, fonts, metadata
+│   │   ├── globals.css         # Global Tailwind base styles
+│   │   ├── page.tsx            # Landing / home page
+│   │   ├── intake/page.tsx     # Intake form (collects businessType, location, name)
+│   │   ├── roadmap/page.tsx    # Roadmap list — renders all STEP_CONFIGS
+│   │   └── step/[id]/page.tsx  # Dynamic step detail page
+│   ├── entities/               # Domain models and context providers
+│   │   └── intake/model/       # IntakeProvider + useIntake hook
+│   ├── features/               # Self-contained feature slices (UI + logic together)
+│   │   └── form-assistant/ui/  # FormAssistant component (draft & copy form output)
+│   └── shared/                 # Pure cross-cutting code — no UI, no side-effects
+│       ├── constants/steps.ts  # STEP_CONFIGS array + getStepById()
+│       └── types/business.ts   # IntakeData, StepConfig, StepType, OwnershipType
+│
+├── scraper/                    # Standalone Node.js tool — NOT part of the Next.js build
+│   ├── src/
+│   │   ├── index.ts            # CLI entry point and orchestrator
+│   │   ├── api-clients.ts      # OrgBook / BC Data Catalogue / BC Registries callers
+│   │   ├── scraper.ts          # Playwright-based fallback scraper
+│   │   └── types.ts            # PermitRequirement, ExtractionResult, ScraperConfig
+│   ├── output/                 # JSON output written at runtime
+│   ├── package.json            # Separate deps: playwright, tsx, typescript
+│   └── tsconfig.json           # Separate TS config — compiled independently
+│
+├── docs/                       # Reference docs and prompt templates (not deployed)
+├── public/                     # Static assets (logo.png)
+├── postcss.config.mjs          # PostCSS → @tailwindcss/postcss
+├── tsconfig.json               # Root TS config for the Next.js app only
+└── package.json                # Root deps for the Next.js app
+```
+
+## Where to Put New Code
+
+| What you're adding | Where it goes |
+|--------------------|---------------|
+| New page / route | `src/app/<route>/page.tsx` |
+| New domain entity or React context | `src/entities/<domain>/model/` |
+| New self-contained feature component | `src/features/<feature-name>/ui/` |
+| Shared TypeScript types | `src/shared/types/` |
+| Shared constants or config data | `src/shared/constants/` |
+| Reusable UI primitives (button, input) | `src/shared/ui/` (create if needed) |
+| Reusable hooks | `src/shared/hooks/` (create if needed) |
+| New scraper API client | `scraper/src/api-clients.ts` |
+| New scraper types | `scraper/src/types.ts` |
+| Static images / fonts | `public/` |
+
+## Conventions
+
+- **Path alias**: use `@/` for all imports inside `src/` (e.g. `@/shared/types/business`).
+- **Client components**: add `"use client"` only when the component needs browser APIs or React state. Pages that are purely data-driven (like `roadmap/page.tsx`) stay as Server Components by default.
+- **Step data is the single source of truth**: `STEP_CONFIGS` in `src/shared/constants/steps.ts` drives both the roadmap list and each step detail page. Do not hard-code step data in individual pages.
+- **IntakeData flows via context**: collect user input through `IntakeProvider` / `useIntake`. Do not pass intake fields as URL params or duplicated local state.
+- **Scraper is isolated**: the `scraper/` directory has its own `package.json`, `tsconfig.json`, and `node_modules`. Never import from `scraper/` inside `src/`, and never import from `src/` inside `scraper/`.
+
+## Rules
+
+- Do NOT add scraper dependencies (`playwright`, `tsx`) to the root `package.json` unless they are used in the Next.js app itself (they cause the root TypeScript compiler to resolve scraper modules that live outside the app boundary).
+- Do NOT create new pages by duplicating layout chrome (header, footer). Layout belongs in `src/app/layout.tsx`.
+- Do NOT define `StepConfig` data inline in page files. All step configs live in `src/shared/constants/steps.ts`.
+- Do NOT add business logic or data fetching directly inside `src/app/**` pages. Extract it to an entity model or feature slice.
+- Do NOT place shared types inside a feature or entity folder. Types needed across multiple layers go in `src/shared/types/`.
+- The scraper's `output/` folder is runtime-generated. Do not commit `scraper/output/*.json` or reference its contents from the frontend.
