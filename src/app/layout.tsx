@@ -16,6 +16,11 @@ const plusJakarta = Plus_Jakarta_Sans({
 export const metadata: Metadata = {
   title: "BuildBeaver",
   description: "Start your business from idea to launch.",
+  icons: {
+    icon: [{ url: "/logo.png", type: "image/png" }],
+    apple: [{ url: "/logo.png", type: "image/png" }],
+    shortcut: "/logo.png",
+  },
 };
 
 type RootLayoutProps = {
@@ -30,9 +35,8 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <FormDataProvider>
             <SiteHeader />
             {children}
+            <ChatbotButton />
           </FormDataProvider>
-          <FormDataProvider>{children}</FormDataProvider>
-          <ChatbotButton />
         </IntakeProvider>
       </body>
     </html>
