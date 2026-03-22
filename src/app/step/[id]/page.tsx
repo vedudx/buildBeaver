@@ -2,6 +2,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FormAssistant } from "@/features/form-assistant/ui/form-assistant";
 import { LicensesChecklist } from "@/features/licenses/ui/licenses-checklist";
+import { LicensesGuidance } from "@/features/licenses/ui/licenses-guidance";
+import { SourceSupportPanel } from "@/features/support/ui/source-support-panel";
 import { FormsEmbed } from "@/shared/ui/forms-embed";
 import { getStepById } from "@/shared/constants/steps";
 
@@ -54,6 +56,8 @@ export default async function StepPage({ params }: StepPageProps) {
 
           {step.type === "semi" ? <LicensesChecklist /> : null}
 
+          {step.type === "semi" ? <LicensesGuidance /> : null}
+
           {step.type === "info" && !hasForms ? (
             <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold text-gray-900">Information</h3>
@@ -61,6 +65,15 @@ export default async function StepPage({ params }: StepPageProps) {
                 This step is guidance-only. Review the details above and proceed when ready.
               </p>
             </div>
+          ) : null}
+
+          {step.sourceLinks?.length ? (
+            <SourceSupportPanel
+              title="Official guidance and support"
+              description="Use these sources to verify requirements and reach the right BC support channel."
+              links={step.sourceLinks}
+              contacts={step.supportContacts}
+            />
           ) : null}
         </div>
 

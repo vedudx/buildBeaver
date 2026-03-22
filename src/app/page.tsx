@@ -230,7 +230,7 @@ export default function HomePage() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-40" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-red-600" />
                 </span>
-                Canada business guide
+                B.C. business guide
               </p>
               <h1 className="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-slate-900 md:text-5xl lg:text-[3.25rem]">
                 Start your business
@@ -240,8 +240,8 @@ export default function HomePage() {
                 </span>
               </h1>
               <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
-                A guided path for Canadian founders: structure, registration, CRA, banking,
-                permits, and accounting — with a checklist you can actually follow.
+                A guided path for B.C. founders: structure, registration, CRA, banking,
+                permits, and accounting, with official support links built into the flow.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <Link
@@ -274,7 +274,7 @@ export default function HomePage() {
                   <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-red-100 text-xs text-red-800 shadow-[inset_0_-1px_0_rgba(0,0,0,0.06)]">
                     ✓
                   </span>{" "}
-                  Built for Canada
+                  Built for B.C.
                 </li>
               </ul>
             </div>

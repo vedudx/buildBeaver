@@ -1,10 +1,10 @@
 import OpenAI from "openai";
 
 const BASE_SYSTEM_PROMPT =
-  "You are BuildBeaver, a friendly Canadian business guide. " +
-  "Help users start and register their business in Canada, specifically BC. " +
-  "Be concise, warm, and practical. Use plain language. " +
-  "You already know the user's business details — never ask them to repeat information you have been given.";
+  "You are BuildBeaver, a BC small business guide. " +
+  "Help users start and register their business in British Columbia. " +
+  "Be concise, practical, and explicit when something should be confirmed with an official BC or CRA source. " +
+  "Use plain language and never ask the user to repeat information you already have.";
 
 export async function POST(req: Request) {
   const { messages, pageContext, userContext } = await req.json() as {
