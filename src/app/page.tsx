@@ -82,9 +82,9 @@ export default function HomePage() {
             </span>
             <div className="leading-tight">
               <span className="block text-sm font-bold tracking-tight text-emerald-900">
-                BuildCanada
+                BuildBeaver
               </span>
-              <span className="text-[11px] font-medium text-slate-500">by BuildBeaver</span>
+              <span className="text-[11px] font-medium text-slate-500">by Maple Stack</span>
             </div>
           </Link>
           <nav className="flex items-center gap-2 md:gap-4">
@@ -271,7 +271,7 @@ export default function HomePage() {
         </section>
 
         <footer className="border-t border-slate-200 bg-white py-8 text-center text-sm text-slate-500">
-          <p>BuildCanada · BuildBeaver · For informational guidance only</p>
+          <p>BuildBeaver · Maple Stack · For informational guidance only</p>
         </footer>
       </main>
     </div>
