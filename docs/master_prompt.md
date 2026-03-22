@@ -37,7 +37,6 @@ This is a hackathon MVP and must be simple, fast, and demo-ready.
 
 ## Scope Rules (IMPORTANT)
 
-- Only support: Bakery in British Columbia
 - Only 2 steps are interactive:
   - Register Business
   - Get Business Number
@@ -50,7 +49,7 @@ This is a hackathon MVP and must be simple, fast, and demo-ready.
 ## User Flow
 
 ### 1. Landing Page (/)
-- Title: "BuildCanada"
+- Title: "BuildBeaver"
 - Subtitle: "Start your business from idea to launch"
 - Button: "Get Started"
 
