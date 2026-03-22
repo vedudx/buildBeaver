@@ -1,19 +1,13 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
-import { Plus_Jakarta_Sans } from "next/font/google";
 import { IntakeProvider } from "@/entities/intake/model/intake-context";
 import { FormDataProvider } from "@/entities/form/model/form-context";
+import { ActiveFieldProvider } from "@/entities/form/model/active-field-context";
 import { ProgressProvider } from "@/entities/progress/model/progress-context";
 import { SiteHeader } from "@/shared/ui/site-header";
 import { ActiveFieldProvider } from "@/entities/form/model/active-field-context";
 import { ChatbotButton } from "@/features/chatbot/ui/chatbot-button";
-
-const plusJakarta = Plus_Jakarta_Sans({
-  subsets: ["latin"],
-  variable: "--font-display",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "BuildBeaver",
@@ -37,9 +31,10 @@ export default function RootLayout({ children }: RootLayoutProps) {
           <FormDataProvider>
             <ActiveFieldProvider>
             <ProgressProvider>
-              <SiteHeader />
-              {children}
-              <ChatbotButton />
+              <ActiveFieldProvider>
+                {children}
+                <ChatbotButton />
+              </ActiveFieldProvider>
             </ProgressProvider>
             </ActiveFieldProvider>
           </FormDataProvider>

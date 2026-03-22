@@ -45,3 +45,14 @@ npm run dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) to view the app.
+
+
+Only the pre-existing errors. Here's the flow now:
+  Without `GEMINI_API_KEY`:
+  1. Click "Find permits with Beaver AI"
+  2. The route writes the full prompt to gemini-stub/prompt.txt
+  3. The panel shows step-by-step instructions with the file path
+  4. You copy prompt.txt → paste into gemini.google.com (​https://gemini.google.com​) → copy the JSON response → paste
+     into gemini-stub/response.json
+  5. Click the button again → app loads your response and shows the permit cards
+
