@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { IntakeProvider } from "@/entities/intake/model/intake-context";
 import { FormDataProvider } from "@/entities/form/model/form-context";
-import { SiteHeader } from "@/shared/ui/site-header";
+import { ActiveFieldProvider } from "@/entities/form/model/active-field-context";
 import { ChatbotButton } from "@/features/chatbot/ui/chatbot-button";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -29,13 +29,14 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" className={plusJakarta.variable}>
       <body className="font-sans antialiased">
         <IntakeProvider>
           <FormDataProvider>
-            <SiteHeader />
-            {children}
-            <ChatbotButton />
+            <ActiveFieldProvider>
+              {children}
+              <ChatbotButton />
+            </ActiveFieldProvider>
           </FormDataProvider>
         </IntakeProvider>
       </body>
