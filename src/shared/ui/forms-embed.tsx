@@ -43,7 +43,7 @@ function LinkCard({ form }: { form: StepForm }) {
         href={form.href}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex items-center justify-center gap-2 rounded-lg bg-red-800 px-5 py-3 text-sm font-semibold text-white shadow-[0_6px_20px_-4px_rgba(127,29,29,0.4)] transition hover:bg-red-900"
+        className="inline-flex items-center justify-center gap-2 rounded-lg border border-red-800 px-5 py-3 text-sm font-semibold text-red-800 transition hover:bg-red-50"
       >
         Go to form
         <span aria-hidden>↗</span>
