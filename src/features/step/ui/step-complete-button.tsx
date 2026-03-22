@@ -24,7 +24,7 @@ export function StepCompleteButton({ stepId }: Props) {
     if (nextStep) {
       router.push(`/step/${nextStep.id}`);
     } else {
-      router.push("/roadmap");
+      router.push("/finish");
     }
   }
 
@@ -82,10 +82,10 @@ export function StepCompleteButton({ stepId }: Props) {
           </Link>
         ) : (
           <Link
-            href="/roadmap"
+            href="/finish"
             className="text-sm font-medium text-red-800 transition hover:underline"
           >
-            Back to roadmap →
+            View summary →
           </Link>
         )}
       </div>

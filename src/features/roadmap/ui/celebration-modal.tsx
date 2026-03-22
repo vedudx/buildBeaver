@@ -2,41 +2,14 @@
 
 import { useEffect } from "react";
 import Link from "next/link";
-import confetti from "canvas-confetti";
 
 type Props = {
   businessName: string;
   onClose: () => void;
 };
 
-function fireConfetti() {
-  const colors = ["#991b1b", "#16a34a", "#fbbf24", "#3b82f6", "#a855f7", "#f97316"];
-
-  // Central burst
-  confetti({
-    particleCount: 140,
-    spread: 80,
-    origin: { y: 0.55 },
-    colors,
-    ticks: 200,
-  });
-
-  // Side cannons
-  setTimeout(() => {
-    confetti({ particleCount: 70, angle: 60, spread: 60, origin: { x: 0, y: 0.6 }, colors });
-    confetti({ particleCount: 70, angle: 120, spread: 60, origin: { x: 1, y: 0.6 }, colors });
-  }, 250);
-
-  // Final shower
-  setTimeout(() => {
-    confetti({ particleCount: 50, spread: 100, origin: { y: 0.4 }, colors, scalar: 0.8 });
-  }, 600);
-}
-
 export function CelebrationModal({ businessName, onClose }: Props) {
   useEffect(() => {
-    fireConfetti();
-
     function handleKey(e: KeyboardEvent) {
       if (e.key === "Escape") onClose();
     }

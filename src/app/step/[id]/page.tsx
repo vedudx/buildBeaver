@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FormAssistant } from "@/features/form-assistant/ui/form-assistant";
-import { LicensesChecklist } from "@/features/licenses/ui/licenses-checklist";
 import { LicensesGuidance } from "@/features/licenses/ui/licenses-guidance";
 import { SourceSupportPanel } from "@/features/support/ui/source-support-panel";
 import { StepCompleteButton } from "@/features/step/ui/step-complete-button";
 import { FormsEmbed } from "@/shared/ui/forms-embed";
 import { getStepById } from "@/shared/constants/steps";
+import { StepProgressBar } from "@/features/step/ui/step-progress-bar";
 
 type StepPageProps = {
   params: Promise<{ id: string }>;
@@ -23,14 +23,16 @@ export default async function StepPage({ params }: StepPageProps) {
   const hasForms = step.forms && step.forms.length > 0;
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-4xl flex-col px-6 py-12 lg:max-w-5xl">
-      <div className="mb-8">
+    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-5 py-12 md:px-8">
+      <div className="mb-6 flex flex-col gap-4">
         <Link href="/roadmap" className="text-sm font-medium text-red-800 hover:underline">
           ← Back to roadmap
         </Link>
+        <StepProgressBar currentStepId={id} />
       </div>
 
       <div className="flex flex-col gap-10">
+        {/* Overview card */}
         <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
           <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">{step.title}</h1>
           <p className="mt-3 text-gray-700 leading-relaxed">{step.shortExplanation}</p>
@@ -51,10 +53,13 @@ export default async function StepPage({ params }: StepPageProps) {
           ) : null}
         </section>
 
+        {/* Form assistant — prepare answers before opening the government form */}
         {step.type === "form" ? <FormAssistant step={step} /> : null}
 
-        {step.type === "semi" ? <LicensesChecklist /> : null}
+        {/* Government forms / external links */}
+        {hasForms ? <FormsEmbed forms={step.forms!} /> : null}
 
+        {/* Licenses & permits guidance */}
         {step.type === "semi" ? <LicensesGuidance /> : null}
 
         {step.type === "info" && !hasForms ? (
@@ -67,21 +72,16 @@ export default async function StepPage({ params }: StepPageProps) {
           </div>
         ) : null}
 
-        {hasForms ? (
-          <section className="w-full min-w-0">
-            <h2 className="sr-only">Forms and external resources</h2>
-            <FormsEmbed forms={step.forms!} />
-          </section>
-        ) : step.type !== "info" && step.type !== "semi" ? (
-          <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50/80 p-6 sm:p-8">
-            <p className="text-sm leading-relaxed text-gray-600">
-              No embedded form links for this step — use the guidance and links above, then continue
-              your roadmap when ready.
-            </p>
-          </div>
+        {step.recommendations?.length ? (
+          <SourceSupportPanel
+            title="Recommended options"
+            description="Popular business bank accounts in Canada. Compare fees and features before choosing."
+            links={step.recommendations}
+          />
         ) : null}
 
-        {step.sourceLinks?.length && step.type !== "semi" ? (
+        {/* Official sources and support contacts */}
+        {step.sourceLinks?.length ? (
           <SourceSupportPanel
             title="Official guidance and support"
             description="Use these sources to verify requirements and reach the right BC support channel."
