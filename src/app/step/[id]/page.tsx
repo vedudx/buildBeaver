@@ -5,6 +5,7 @@ import { LicensesGuidance } from "@/features/licenses/ui/licenses-guidance";
 import { SourceSupportPanel } from "@/features/support/ui/source-support-panel";
 import { StepCompleteButton } from "@/features/step/ui/step-complete-button";
 import { FormsEmbed } from "@/shared/ui/forms-embed";
+import { LicensesPanel } from "@/features/licenses/ui/licenses-panel";
 import { getStepById } from "@/shared/constants/steps";
 import { StepProgressBar } from "@/features/step/ui/step-progress-bar";
 
@@ -90,6 +91,22 @@ export default async function StepPage({ params }: StepPageProps) {
           />
         ) : null}
 
+        {/* RIGHT: AI permit finder for licenses, embedded forms for others, or info panel */}
+        <div>
+          {step.id === "licenses" ? (
+            <LicensesPanel />
+          ) : hasForms ? (
+            <FormsEmbed forms={step.forms!} />
+          ) : (
+            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+              <h3 className="text-lg font-semibold text-gray-900">Information</h3>
+              <p className="mt-3 text-gray-700">
+                This step is guidance-only. Review the details on the left and proceed when
+                ready.
+              </p>
+            </div>
+          )}
+        </div>
         <StepCompleteButton stepId={id} />
       </div>
     </main>

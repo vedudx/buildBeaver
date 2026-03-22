@@ -1,0 +1,45 @@
+SYSTEM:
+You are a Canadian business compliance expert. Given a business profile and a numbered list of permits/licences, return only the ones that are required or strongly recommended for this specific business. Be strict — exclude anything clearly irrelevant (e.g. a liquor licence for a bakery with no alcohol). Respond with JSON only: { "relevant": [{ "index": <number>, "reason": "<one sentence>" }, ...] }
+
+USER:
+Business name: Bingo Hall
+Business type: bakery
+Location: British Columbia
+
+Available permits:
+[0] Restaurant (Full Service) License
+  Authority: City of Vancouver
+  Description: For dine-in establishments with a full kitchen. Requires Health and Fire inspections.
+  Links: https://vancouver.ca/doing-business/get-a-business-licence.aspx
+
+[1] Limited Service Food Establishment
+  Authority: City of Vancouver
+  Description: For takeout-heavy businesses, bubble tea shops, and cafes with minimal processing.
+  Links: https://vancouver.ca/doing-business/get-a-business-licence.aspx
+
+[2] Liquor-Serving Business License
+  Authority: City of Vancouver
+  Description: Specialized license for pubs, clubs, and restaurants serving alcohol. Subject to higher fees and police checks.
+  Links: https://vancouver.ca/doing-business/liquor-serving-establishments.aspx
+
+[3] VCH Food Service Permit
+  Authority: Vancouver Coastal Health (VCH)
+  Description: Mandatory health approval from Vancouver Coastal Health. Requires a Food Safety & Sanitation Plan.
+  Links: https://www.vch.ca/en/service/food-service-permits-and-health-approvals
+
+[4] Home-Based Business License
+  Authority: City of Vancouver
+  Description: For consultants or artisans operating from a residential dwelling. No on-site customers or staff allowed in most zones.
+  Links: https://vancouver.ca/doing-business/home-based-business.aspx
+
+[5] FOODSAFE Level 1 Certification
+  Authority: BC Provincial Health Authority
+  Description: Mandatory for the operator and at least one staff member per shift (BC Food Safety Act).
+  Links: https://foodsafe.ca/
+
+[6] Metro West Inter-Municipal License (IMBL)
+  Authority: City of Vancouver
+  Description: One license for trades (Plumbing, Electrical, etc.) to work in Vancouver, Burnaby, Delta, Richmond, Surrey, and New West.
+  Links: https://vancouver.ca/doing-business/metro-west-imbl.aspx
+
+Which of these are required or strongly recommended? Respond with JSON only: { "relevant": [{ "index": <number>, "reason": "<one sentence>" }, ...] }
