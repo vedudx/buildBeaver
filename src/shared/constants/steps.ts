@@ -45,7 +45,13 @@ export const STEP_CONFIGS: StepConfig[] = [
       label: "CRA Registration",
     },
     type: "form",
-    formFields: ["business_name", "ownership_type", "address", "start_date"],
+    formFields: [
+      "business_name",
+      "ownership_type",
+      "address",
+      "start_date",
+      "gst_threshold",
+    ],
   },
   {
     id: "bank_account",
