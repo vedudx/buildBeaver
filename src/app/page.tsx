@@ -239,7 +239,7 @@ export default function HomePage() {
               <h1 className="mt-7 text-balance text-[2.125rem] font-extrabold leading-[1.06] tracking-[-0.02em] text-slate-900 sm:text-5xl lg:text-[3.35rem]">
                 Start your business
                 <br />
-                <span className="bg-gradient-to-r from-red-800 via-red-700 to-red-950 bg-clip-text text-transparent">
+                <span className="bg-gradient-to-r from-red-800 via-red-700 to-red-950 bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(127,29,29,0.15)]">
                   from idea to launch.
                 </span>
               </h1>
