@@ -28,7 +28,7 @@ export default function IntakePage() {
   }
 
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-2xl flex-col px-6 py-12">
+    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-5 py-12 md:px-8">
       <h1 className="text-3xl font-bold text-gray-900">Tell us about your business</h1>
       <p className="mt-2 text-gray-600">
         A few quick questions so we can tailor your roadmap.
