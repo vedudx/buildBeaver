@@ -1,7 +1,25 @@
 @import "tailwindcss";
 
+@keyframes home-float {
+  0%,
+  100% {
+    transform: translateY(0) translateZ(0);
+  }
+  50% {
+    transform: translateY(-10px) translateZ(0);
+  }
+}
+
 @theme {
   --font-sans: var(--font-display), ui-sans-serif, system-ui, sans-serif;
+  /* Brand accent (replaces former emerald / #019a68-style UI) */
+  --color-brand-50: #fce8ea;
+  --color-brand-500: #c41e2a;
+  --color-brand-600: #9d0812;
+  --color-brand-700: #7a060e;
+  --color-brand-800: #5c0a0f;
+  --color-brand-900: #3d070a;
+  --animate-home-float: home-float 7s ease-in-out infinite;
 }
 
 :root {

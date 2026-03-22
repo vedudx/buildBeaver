@@ -11,7 +11,7 @@ function LinkCard({ form }: { form: StepForm }) {
   return (
     <div className="flex flex-col gap-6 rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
       <div>
-        <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+        <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">
           {form.authority}
         </p>
         <h3 className="mt-1 text-lg font-bold text-gray-900">{form.title}</h3>
@@ -43,7 +43,7 @@ function LinkCard({ form }: { form: StepForm }) {
         href={form.href}
         target="_blank"
         rel="noreferrer"
-        className="inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700"
+        className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-5 py-3 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700"
       >
         Go to form
         <span aria-hidden>↗</span>
@@ -95,7 +95,7 @@ export function FormsEmbed({ forms }: FormsEmbedProps) {
               onClick={() => setActiveIndex(i)}
               className={`flex-1 rounded-md px-3 py-2 text-sm font-medium transition ${
                 i === activeIndex
-                  ? "bg-white text-emerald-700 shadow-sm"
+                  ? "bg-white text-brand-600 shadow-sm"
                   : "text-gray-500 hover:text-gray-700"
               }`}
             >

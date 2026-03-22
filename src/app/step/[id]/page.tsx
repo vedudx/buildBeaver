@@ -42,7 +42,7 @@ export default async function StepPage({ params }: StepPageProps) {
                 href={step.optionalLink.href}
                 target="_blank"
                 rel="noreferrer"
-                className="mt-5 inline-block text-sm font-semibold text-emerald-700 hover:underline"
+                className="mt-5 inline-block text-sm font-semibold text-brand-600 hover:underline"
               >
                 {step.optionalLink.label}
               </a>
