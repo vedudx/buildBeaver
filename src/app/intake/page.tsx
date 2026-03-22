@@ -36,7 +36,7 @@ export default function IntakePage() {
             <select
               value={businessType}
               onChange={(event) => setBusinessType(event.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
             >
               <option value="bakery">Bakery</option>
             </select>
@@ -47,7 +47,7 @@ export default function IntakePage() {
             <select
               value={location}
               onChange={(event) => setLocation(event.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
             >
               <option value="British Columbia">British Columbia</option>
             </select>
@@ -62,14 +62,14 @@ export default function IntakePage() {
               value={businessName}
               onChange={(event) => setBusinessName(event.target.value)}
               placeholder="Vedant Bakery Inc."
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
             />
           </label>
         </div>
 
         <button
           type="submit"
-          className="mt-6 rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+          className="mt-6 rounded-md bg-red-800 px-4 py-2 text-sm font-semibold text-white hover:bg-red-900"
         >
           Continue
         </button>

@@ -66,7 +66,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
               Business Name
             </span>
             <input
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
               type="text"
               value={form.business_name}
               onChange={(event) => updateField("business_name", event.target.value)}
@@ -81,7 +81,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
               Ownership Type
             </span>
             <select
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
               value={form.ownership_type}
               onChange={(event) =>
                 updateField("ownership_type", event.target.value as OwnershipType)
@@ -97,7 +97,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
           <label className="block">
             <span className="mb-1 block text-sm font-medium text-gray-700">Address</span>
             <input
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
               type="text"
               value={form.address}
               onChange={(event) => updateField("address", event.target.value)}
@@ -112,7 +112,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
               Start Date
             </span>
             <input
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
               type="text"
               value={form.start_date}
               onChange={(event) => updateField("start_date", event.target.value)}
@@ -126,7 +126,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
         <button
           type="button"
           onClick={handleGenerate}
-          className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+          className="rounded-md bg-red-800 px-4 py-2 text-sm font-semibold text-white hover:bg-red-900"
         >
           Generate Answers
         </button>
@@ -138,7 +138,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
         >
           Copy All
         </button>
-        {copied ? <span className="self-center text-sm text-emerald-700">Copied.</span> : null}
+        {copied ? <span className="self-center text-sm text-red-800">Copied.</span> : null}
       </div>
 
       <div className="mt-5 rounded-md bg-gray-50 p-4">
