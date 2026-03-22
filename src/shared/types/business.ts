@@ -42,6 +42,17 @@ export type StepForm = {
   embeddable?: boolean;
 };
 
+export type PermitRequirement = {
+  id: string;
+  title: string;
+  description: string;
+  authority: string;
+  category: "mandatory" | "conditional" | "environmental" | "municipal" | "provincial" | "federal";
+  links: string[];
+  estimatedCost?: string;
+  estimatedTimeline?: string;
+};
+
 export type StepConfig = {
   id: string;
   title: string;
@@ -52,6 +63,7 @@ export type StepConfig = {
     label: string;
   };
   forms?: StepForm[];
+  permits?: PermitRequirement[];
   type: StepType;
   formFields?: FormFieldKey[];
   sourceLinks?: SourceLink[];
