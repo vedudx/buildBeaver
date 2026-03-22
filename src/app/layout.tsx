@@ -15,7 +15,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 
 export const metadata: Metadata = {
   title: "BuildBeaver",
-  description: "Start your business from idea to launch.",
+  description: "Guided B.C. business setup with official resource links and practical startup support.",
   icons: {
     icon: [{ url: "/logo.png", type: "image/png" }],
     apple: [{ url: "/logo.png", type: "image/png" }],

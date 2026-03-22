@@ -15,8 +15,8 @@ export function SiteHeader() {
             priority
           />
           <div className="leading-tight">
-            <span className="block text-sm font-bold tracking-tight text-red-950">BuildBeaver</span>
-            <span className="text-[11px] font-medium text-slate-500">by Maple Stack</span>
+            <span className="block text-sm font-bold tracking-tight text-brand-900">BuildBeaver</span>
+            <span className="text-[11px] font-medium text-slate-500">B.C. business setup guide</span>
           </div>
         </Link>
         <nav className="flex items-center gap-2 md:gap-4">
@@ -25,6 +25,12 @@ export function SiteHeader() {
             className="hidden text-sm font-medium text-slate-600 transition hover:text-red-900 sm:inline"
           >
             Roadmap
+          </Link>
+          <Link
+            href="/support"
+            className="hidden text-sm font-medium text-slate-600 transition hover:text-red-900 md:inline"
+          >
+            Support
           </Link>
           <Link
             href="/intake"

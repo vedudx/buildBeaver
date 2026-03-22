@@ -234,7 +234,7 @@ export default function HomePage() {
                   <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400/50" />
                   <span className="relative inline-flex h-2 w-2 rounded-full bg-red-600 shadow-[0_0_0_2px_rgba(254,202,202,0.6)]" />
                 </span>
-                Canada business guide
+                B.C. business guide
               </p>
               <h1 className="mt-7 text-balance text-[2.125rem] font-extrabold leading-[1.06] tracking-[-0.02em] text-slate-900 sm:text-5xl lg:text-[3.35rem]">
                 Start your business
@@ -243,9 +243,9 @@ export default function HomePage() {
                   from idea to launch.
                 </span>
               </h1>
-              <p className="mt-6 max-w-lg text-[1.0625rem] leading-[1.65] text-slate-600 md:text-lg">
-                A guided path for Canadian founders: structure, registration, CRA, banking,
-                permits, and accounting — with a checklist you can actually follow.
+              <p className="mt-6 max-w-xl text-lg leading-relaxed text-slate-600">
+                A guided path for B.C. founders: structure, registration, CRA, banking,
+                permits, and accounting, with official support links built into the flow.
               </p>
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <Link
@@ -261,18 +261,25 @@ export default function HomePage() {
                   Preview roadmap
                 </Link>
               </div>
-              <ul className="mt-11 flex flex-wrap gap-2.5 sm:gap-3">
-                {["No signup", "Local-only data", "Built for Canada"].map((label) => (
-                  <li
-                    key={label}
-                    className="inline-flex items-center gap-2 rounded-full border border-slate-200/80 bg-white/60 px-3 py-1.5 text-xs font-medium text-slate-600 shadow-sm backdrop-blur-sm"
-                  >
-                    <span className="flex h-5 w-5 items-center justify-center rounded-full bg-red-100 text-[10px] text-red-800 ring-1 ring-red-200/70">
-                      ✓
-                    </span>
-                    {label}
-                  </li>
-                ))}
+              <ul className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-slate-500">
+                <li className="flex items-center gap-2">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-red-100 text-xs text-red-800 shadow-[inset_0_-1px_0_rgba(0,0,0,0.06)]">
+                    ✓
+                  </span>{" "}
+                  No signup
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-red-100 text-xs text-red-800 shadow-[inset_0_-1px_0_rgba(0,0,0,0.06)]">
+                    ✓
+                  </span>{" "}
+                  Local-only data
+                </li>
+                <li className="flex items-center gap-2">
+                  <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-red-100 text-xs text-red-800 shadow-[inset_0_-1px_0_rgba(0,0,0,0.06)]">
+                    ✓
+                  </span>{" "}
+                  Built for B.C.
+                </li>
               </ul>
             </div>
 

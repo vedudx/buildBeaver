@@ -95,9 +95,9 @@ export function FormAssistant({ step }: FormAssistantProps) {
     address:
       formData.address ||
       (intakeData.city
-        ? `${intakeData.city}, BC, Canada`
+        ? `${intakeData.city}, BC`
         : intakeData.location
-          ? `${intakeData.location}, Canada`
+          ? intakeData.location
           : ""),
     start_date: formData.start_date,
     gst_threshold: formData.gst_threshold,
