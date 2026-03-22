@@ -1,0 +1,20 @@
+{
+  "name": "buildbeaver-scraper",
+  "version": "1.0.0",
+  "description": "API-first permit requirement extractor for BC businesses, with Playwright fallback",
+  "main": "dist/index.js",
+  "scripts": {
+    "build": "tsc",
+    "start": "tsx src/index.ts",
+    "scrape": "tsx src/index.ts --mode=scrape",
+    "api": "tsx src/index.ts --mode=api"
+  },
+  "dependencies": {
+    "playwright": "^1.49.0",
+    "tsx": "^4.19.0",
+    "typescript": "^5.6.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0"
+  }
+}
