@@ -80,7 +80,13 @@ export const STEP_CONFIGS: StepConfig[] = [
       label: "CRA BRO Portal",
     },
     type: "form",
-    formFields: ["business_name", "ownership_type", "address", "start_date"],
+    formFields: [
+      "business_name",
+      "ownership_type",
+      "address",
+      "start_date",
+      "gst_threshold",
+    ],
   },
   {
     id: "bc_pst_tax",

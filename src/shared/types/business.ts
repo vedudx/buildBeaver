@@ -6,18 +6,16 @@ export type IntakeData = {
 
 export type OwnershipType = "sole proprietorship" | "corporation";
 
-export type StepType = "info" | "semi" | "form";
+export type GstThresholdAnswer = "yes" | "no";
 
-export type PermitRequirement = {
-  id: string;
-  title: string;
-  description: string;
-  authority: string;
-  category: "mandatory" | "conditional" | "environmental" | "municipal" | "provincial" | "federal";
-  links: string[];
-  estimatedCost?: string;
-  estimatedTimeline?: string;
-};
+export type FormFieldKey =
+  | "business_name"
+  | "ownership_type"
+  | "address"
+  | "start_date"
+  | "gst_threshold";
+
+export type StepType = "info" | "semi" | "form";
 
 export type StepConfig = {
   id: string;
@@ -29,6 +27,5 @@ export type StepConfig = {
     label: string;
   };
   type: StepType;
-  formFields?: Array<"business_name" | "ownership_type" | "address" | "start_date">;
-  permits?: PermitRequirement[];
+  formFields?: FormFieldKey[];
 };
