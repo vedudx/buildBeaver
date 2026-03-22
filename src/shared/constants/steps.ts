@@ -24,9 +24,27 @@ export const STEP_CONFIGS: StepConfig[] = [
       "Keep your registration confirmation for future steps.",
     ],
     optionalLink: {
-      href: "https://www.bcbusinessregistry.ca/",
+      href: "https://www.bcregistry.gov.bc.ca/en-CA",
       label: "BC Business Registry",
     },
+    forms: [
+      {
+        title: "BC Name Request",
+        href: "https://www.names.bcregistry.gov.bc.ca/",
+        authority: "BC Registries and Online Services",
+        estimatedCost: "$30",
+        estimatedTimeline: "2–5 business days",
+        embeddable: false,
+      },
+      {
+        title: "BC Business Name Registration",
+        href: "https://www.account.bcregistry.gov.bc.ca/decide-business",
+        authority: "BC Registries and Online Services",
+        estimatedCost: "$40 (sole proprietorship), $350+ (incorporation)",
+        estimatedTimeline: "1–3 business days",
+        embeddable: false,
+      },
+    ],
     type: "form",
     formFields: ["business_name", "ownership_type", "address"],
   },
@@ -44,8 +62,22 @@ export const STEP_CONFIGS: StepConfig[] = [
       href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/registering-your-business/register.html",
       label: "CRA Registration",
     },
+    forms: [
+      {
+        title: "CRA Business Number Registration",
+        href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/business-registration/business-number-program-account/how-register.html",
+        authority: "Canada Revenue Agency",
+        embeddable: false,
+      },
+    ],
     type: "form",
-    formFields: ["business_name", "ownership_type", "address", "start_date"],
+    formFields: [
+      "business_name",
+      "ownership_type",
+      "address",
+      "start_date",
+      "gst_threshold",
+    ],
   },
   {
     id: "bank_account",
