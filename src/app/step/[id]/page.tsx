@@ -31,12 +31,12 @@ export default async function StepPage({ params }: StepPageProps) {
         <StepProgressBar currentStepId={id} />
       </div>
 
-      <div className="flex flex-col gap-6">
+      <div className="flex flex-col gap-10">
         {/* Overview card */}
-        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-          <h1 className="text-2xl font-bold text-gray-900">{step.title}</h1>
-          <p className="mt-3 text-gray-700">{step.shortExplanation}</p>
-          <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-700">
+        <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+          <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">{step.title}</h1>
+          <p className="mt-3 text-gray-700 leading-relaxed">{step.shortExplanation}</p>
+          <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-700 leading-relaxed">
             {step.bulletPoints.map((point) => (
               <li key={point}>{point}</li>
             ))}
@@ -61,6 +61,24 @@ export default async function StepPage({ params }: StepPageProps) {
 
         {/* Licenses & permits guidance */}
         {step.type === "semi" ? <LicensesGuidance /> : null}
+
+        {step.type === "info" && !hasForms ? (
+          <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+            <h2 className="text-lg font-semibold text-gray-900">Information</h2>
+            <p className="mt-3 text-gray-700 leading-relaxed">
+              This step is guidance-only. Review the details above and proceed when you are ready
+              for the next roadmap item.
+            </p>
+          </div>
+        ) : null}
+
+        {step.recommendations?.length ? (
+          <SourceSupportPanel
+            title="Recommended options"
+            description="Popular business bank accounts in Canada. Compare fees and features before choosing."
+            links={step.recommendations}
+          />
+        ) : null}
 
         {/* Official sources and support contacts */}
         {step.sourceLinks?.length ? (

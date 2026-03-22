@@ -59,12 +59,16 @@ const FEATURES = [
 
 function IsometricBlocks() {
   return (
-    <svg
+    <div
       aria-hidden
-      className="pointer-events-none absolute -right-4 top-1/2 h-[220px] w-[220px] -translate-y-1/2 text-red-900/90 opacity-[0.35] sm:right-0 sm:h-[260px] sm:w-[260px] md:opacity-50"
-      viewBox="0 0 200 200"
-      fill="none"
+      className="pointer-events-none absolute -right-4 top-1/2 h-[220px] w-[220px] -translate-y-1/2 sm:right-0 sm:h-[260px] sm:w-[260px] [perspective:900px] motion-reduce:[perspective:none]"
     >
+      <div className="h-full w-full origin-center transform-gpu motion-reduce:animate-none md:animate-home-iso-3d">
+        <svg
+          className="h-full w-full text-red-900/90 opacity-[0.35] md:opacity-50"
+          viewBox="0 0 200 200"
+          fill="none"
+        >
       <defs>
         <linearGradient id="iso-top" x1="40" y1="20" x2="160" y2="60" gradientUnits="userSpaceOnUse">
           <stop stopColor="#fecaca" />
@@ -100,7 +104,9 @@ function IsometricBlocks() {
         <path d="M42 62 L100 28 L100 90 L42 124 Z" fill="url(#iso-left)" opacity="0.9" />
         <path d="M158 62 L100 28 L100 90 L158 124 Z" fill="url(#iso-right)" opacity="0.9" />
       </g>
-    </svg>
+        </svg>
+      </div>
+    </div>
   );
 }
 
@@ -111,7 +117,7 @@ function HeroRoadmapStack() {
         className="relative [perspective:1400px] [perspective-origin:50%_40%]"
         style={{ transformStyle: "preserve-3d" }}
       >
-        <div className="group relative transition-transform duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] will-change-transform hover:[transform:rotateX(4deg)_rotateY(-8deg)_translateY(-4px)] lg:[transform:rotateX(8deg)_rotateY(-14deg)_translateZ(0)]">
+        <div className="group relative transform-gpu will-change-transform transition-transform duration-500 ease-out hover:[animation-play-state:paused] motion-reduce:hover:transform-none motion-reduce:animate-none max-lg:hover:[transform:rotateX(5deg)_rotateY(-6deg)_translateY(-3px)] lg:animate-home-hero-3d lg:hover:[transform:rotateX(11deg)_rotateY(-17deg)_translateY(-8px)_translateZ(12px)]">
           {/* Ground / contact shadow */}
           <div
             aria-hidden
@@ -188,13 +194,13 @@ function HeroRoadmapStack() {
           {/* Floating accent orbs */}
           <div
             aria-hidden
-            className="pointer-events-none absolute -left-16 top-8 h-24 w-24 rounded-full bg-gradient-to-br from-red-400/30 to-red-900/10 blur-2xl animate-home-float"
-            style={{ animationDelay: "0.5s" }}
+            className="pointer-events-none absolute -left-16 top-8 h-24 w-24 rounded-full bg-gradient-to-br from-red-400/30 to-red-900/10 blur-2xl motion-reduce:animate-none motion-reduce:transform-none animate-home-orb-3d"
+            style={{ animationDelay: "0.4s" }}
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute -right-10 bottom-12 h-28 w-28 rounded-full bg-gradient-to-br from-amber-300/25 to-red-800/10 blur-2xl animate-home-float"
-            style={{ animationDelay: "1.2s" }}
+            className="pointer-events-none absolute -right-10 bottom-12 h-28 w-28 rounded-full bg-gradient-to-br from-amber-300/25 to-red-800/10 blur-2xl motion-reduce:animate-none motion-reduce:transform-none animate-home-float"
+            style={{ animationDelay: "1.1s" }}
           />
         </div>
       </div>

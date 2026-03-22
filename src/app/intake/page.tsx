@@ -20,9 +20,17 @@ export default function IntakePage() {
   );
   const [city, setCity] = useState(intakeData.city || "");
   const [businessName, setBusinessName] = useState(intakeData.businessName || "");
+  const [cityError, setCityError] = useState("");
+  const canContinue = Boolean(city.trim());
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+    if (!city.trim()) {
+      setCityError("Select a city to continue.");
+      return;
+    }
+
+    setCityError("");
     setIntakeData({ businessType, location, city, businessName });
     router.push("/roadmap");
   }
@@ -79,8 +87,19 @@ export default function IntakePage() {
             </span>
             <select
               value={city}
-              onChange={(event) => setCity(event.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
+              onChange={(event) => {
+                setCity(event.target.value);
+                if (event.target.value.trim()) {
+                  setCityError("");
+                }
+              }}
+              required
+              aria-invalid={cityError ? "true" : "false"}
+              className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring ${
+                cityError
+                  ? "border-red-400 ring-red-200 focus:ring"
+                  : "border-gray-300 ring-red-200 focus:ring"
+              }`}
             >
               <option value="">Select your city</option>
               {BC_CITIES.map((c) => (
@@ -92,6 +111,7 @@ export default function IntakePage() {
             <p className="mt-1 text-xs text-gray-500">
               Required for municipal licenses and permits.
             </p>
+            {cityError ? <p className="mt-1 text-xs font-medium text-red-700">{cityError}</p> : null}
           </label>
 
           <label className="block">
@@ -110,7 +130,8 @@ export default function IntakePage() {
 
         <button
           type="submit"
-          className="mt-6 rounded-md bg-red-800 px-4 py-2 text-sm font-semibold text-white hover:bg-red-900"
+          disabled={!canContinue}
+          className="mt-6 rounded-md bg-red-800 px-4 py-2 text-sm font-semibold text-white hover:bg-red-900 disabled:cursor-not-allowed disabled:bg-red-300"
         >
           Continue
         </button>
