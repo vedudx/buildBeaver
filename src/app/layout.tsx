@@ -6,6 +6,7 @@ import { FormDataProvider } from "@/entities/form/model/form-context";
 import { ActiveFieldProvider } from "@/entities/form/model/active-field-context";
 import { ProgressProvider } from "@/entities/progress/model/progress-context";
 import { SiteHeader } from "@/shared/ui/site-header";
+import { ActiveFieldProvider } from "@/entities/form/model/active-field-context";
 import { ChatbotButton } from "@/features/chatbot/ui/chatbot-button";
 
 export const metadata: Metadata = {
@@ -24,16 +25,18 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" className={plusJakarta.variable}>
       <body className="font-sans antialiased">
         <IntakeProvider>
           <FormDataProvider>
+            <ActiveFieldProvider>
             <ProgressProvider>
               <ActiveFieldProvider>
                 {children}
                 <ChatbotButton />
               </ActiveFieldProvider>
             </ProgressProvider>
+            </ActiveFieldProvider>
           </FormDataProvider>
         </IntakeProvider>
       </body>

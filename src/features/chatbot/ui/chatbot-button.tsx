@@ -81,7 +81,13 @@ export function ChatbotButton() {
         }),
       });
 
-      if (!res.ok || !res.body) throw new Error("Request failed");
+      if (!res.ok || !res.body) {
+        const errorText = res.status === 429
+          ? "The AI service is temporarily rate-limited. Please wait a moment and try again."
+          : "Sorry, something went wrong. Please try again.";
+        setMessages((prev) => [...prev, { role: "assistant", content: errorText }]);
+        return;
+      }
 
       const reader = res.body.getReader();
       const decoder = new TextDecoder();

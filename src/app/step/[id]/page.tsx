@@ -8,6 +8,7 @@ import { SourceSupportPanel } from "@/features/support/ui/source-support-panel";
 import { StepCompleteButton } from "@/features/step/ui/step-complete-button";
 import { StepProgressBar } from "@/features/step/ui/step-progress-bar";
 import { FormsEmbed } from "@/shared/ui/forms-embed";
+import { LicensesPanel } from "@/features/licenses/ui/licenses-panel";
 import { getStepById } from "@/shared/constants/steps";
 
 type StepPageProps = {
@@ -87,10 +88,11 @@ export default async function StepPage({ params }: StepPageProps) {
 
         <StepCompleteButton stepId={id} />
 
+        {/* RIGHT: AI permit finder for licenses, embedded forms for others, or info panel */}
         <div>
           {step.id === "licenses" ? (
             <LicensesPanel />
-          ) : step.id === "accounting" ? null : hasForms ? (
+          ) : hasForms ? (
             <FormsEmbed forms={step.forms!} />
           ) : step.type !== "semi" ? (
             <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
@@ -102,7 +104,6 @@ export default async function StepPage({ params }: StepPageProps) {
             </div>
           ) : null}
         </div>
-      </div>
     </main>
   );
 }

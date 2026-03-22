@@ -10,8 +10,6 @@ export function LicensesPanel() {
   const [results, setResults] = useState<RelevantForm[] | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [stubMode, setStubMode] = useState(false);
-  const [stubPromptPath, setStubPromptPath] = useState<string | null>(null);
 
   async function handleFind() {
     setLoading(true);
@@ -33,8 +31,6 @@ export function LicensesPanel() {
 
       const data = (await res.json()) as FilterLicensesResponse;
       setResults(data.relevantForms);
-      setStubMode(data.stubMode ?? false);
-      setStubPromptPath(data.stubPromptPath ?? null);
     } catch {
       setError("Something went wrong. Please try again.");
     } finally {
@@ -101,22 +97,7 @@ export function LicensesPanel() {
         {results !== null && (
           <div className="flex justify-start">
             <div className="w-full max-w-[95%] rounded-2xl bg-slate-100 px-3.5 py-3 text-sm text-slate-800">
-              {results.length === 0 && stubMode ? (
-                <div className="space-y-2">
-                  <p className="font-semibold text-amber-800">Stub mode — no API key detected</p>
-                  <p className="text-slate-700">The prompt has been written to:</p>
-                  <code className="block rounded-lg bg-slate-200 px-3 py-2 text-xs text-slate-800">
-                    {stubPromptPath ?? "gemini-stub/prompt.txt"}
-                  </code>
-                  <ol className="list-decimal space-y-1 pl-4 text-xs text-slate-700">
-                    <li>Open that file and copy the full text</li>
-                    <li>Paste it into <a href="https://gemini.google.com" target="_blank" rel="noreferrer" className="font-medium text-[#CC0000] underline">gemini.google.com</a></li>
-                    <li>Copy Gemini&apos;s JSON response</li>
-                    <li>Paste it into <code className="rounded bg-slate-200 px-1">gemini-stub/response.json</code></li>
-                    <li>Click the button again to load the result</li>
-                  </ol>
-                </div>
-              ) : results.length === 0 ? (
+              {results.length === 0 ? (
                 <p>
                   No specific permits identified for your business type. Check{" "}
                   <a
@@ -137,7 +118,7 @@ export function LicensesPanel() {
                   </p>
                   {results.map((form) => (
                     <div
-                      key={form.id}
+                      key={form.href}
                       className="rounded-xl border border-slate-200 bg-white p-3.5 shadow-sm"
                     >
                       <div className="flex items-start justify-between gap-2">
@@ -145,16 +126,14 @@ export function LicensesPanel() {
                           <p className="font-semibold text-slate-900">{form.title}</p>
                           <p className="text-xs text-slate-500">{form.authority}</p>
                         </div>
-                        {form.links[0] && (
-                          <a
-                            href={form.links[0]}
-                            target="_blank"
-                            rel="noreferrer"
-                            className="shrink-0 rounded-lg bg-[#CC0000] px-2.5 py-1 text-xs font-semibold text-white transition hover:bg-red-700"
-                          >
-                            Open ↗
-                          </a>
-                        )}
+                        <a
+                          href={form.href}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="shrink-0 rounded-lg bg-[#CC0000] px-2.5 py-1 text-xs font-semibold text-white transition hover:bg-red-700"
+                        >
+                          Open ↗
+                        </a>
                       </div>
                       <p className="mt-2 text-xs italic text-slate-600">{form.reason}</p>
                       {(form.estimatedCost || form.estimatedTimeline) && (

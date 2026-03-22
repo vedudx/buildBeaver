@@ -1,10 +1,6 @@
-export const runtime = "nodejs";
-
-import { writeFile, readFile } from "node:fs/promises";
-import { join } from "node:path";
 import { GoogleGenerativeAI } from "@google/generative-ai";
 import { getStepById } from "@/shared/constants/steps";
-import type { PermitRequirement } from "@/shared/types/business";
+import type { StepForm } from "@/shared/types/business";
 
 export type FilterLicensesRequest = {
   businessType: string;
@@ -12,112 +8,76 @@ export type FilterLicensesRequest = {
   businessName: string;
 };
 
-export type RelevantForm = PermitRequirement & { reason: string };
+export type RelevantForm = StepForm & { reason: string };
 
 export type FilterLicensesResponse = {
   relevantForms: RelevantForm[];
-  stubMode?: boolean;
-  stubPromptPath?: string;
 };
-
-const STUB_DIR = join(process.cwd(), "gemini-stub");
-const PROMPT_FILE = join(STUB_DIR, "prompt.txt");
-const RESPONSE_FILE = join(STUB_DIR, "response.json");
-
-const SYSTEM_INSTRUCTION =
-  "You are a Canadian business compliance expert. " +
-  "Given a business profile and a numbered list of permits/licences, " +
-  "return only the ones that are required or strongly recommended for this specific business. " +
-  "Be strict — exclude anything clearly irrelevant (e.g. a liquor licence for a bakery with no alcohol). " +
-  'Respond with JSON only: { "relevant": [{ "index": <number>, "reason": "<one sentence>" }, ...] }';
 
 export async function POST(req: Request) {
   const { businessType, location, businessName } =
     (await req.json()) as FilterLicensesRequest;
 
-  const resolvedBusinessType = businessType || "bakery";
-  const resolvedLocation = location || "British Columbia";
+  if (!businessType || !location) {
+    return Response.json(
+      { error: "businessType and location are required." },
+      { status: 400 },
+    );
+  }
 
   const licensesStep = getStepById("licenses");
-  const allPermits = licensesStep?.permits ?? [];
+  const allForms = licensesStep?.forms ?? [];
 
-  if (allPermits.length === 0) {
+  if (allForms.length === 0) {
     return Response.json({ relevantForms: [] });
   }
 
-  const permitList = allPermits
+  const formList = allForms
     .map(
-      (p, i) =>
-        `[${i}] ${p.title}\n  Authority: ${p.authority}\n  Description: ${p.description}` +
-        (p.links.length ? `\n  Links: ${p.links.join(", ")}` : ""),
+      (f, i) =>
+        `[${i}] ${f.title}\n  Authority: ${f.authority}\n  Description: ${f.description ?? "N/A"}`,
     )
     .join("\n\n");
 
-  const userPrompt =
+  const prompt =
     `Business name: ${businessName || "Unknown"}\n` +
-    `Business type: ${resolvedBusinessType}\n` +
-    `Location: ${resolvedLocation}\n\n` +
-    `Available permits:\n${permitList}\n\n` +
+    `Business type: ${businessType}\n` +
+    `Location: ${location}\n\n` +
+    `Available permits:\n${formList}\n\n` +
     "Which of these are required or strongly recommended? " +
     'Respond with JSON only: { "relevant": [{ "index": <number>, "reason": "<one sentence>" }, ...] }';
 
-  // ── Stub mode: no API key ────────────────────────────────────────────────
-  if (!process.env.GEMINI_API_KEY) {
-    console.log("[filter-licenses] No GEMINI_API_KEY — stub mode. Writing prompt to", PROMPT_FILE);
-    const fullPrompt = `SYSTEM:\n${SYSTEM_INSTRUCTION}\n\nUSER:\n${userPrompt}`;
-    await writeFile(PROMPT_FILE, fullPrompt, "utf-8");
-    console.log("[filter-licenses] Prompt written successfully.");
+  try {
+    const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? "");
+    const model = genAI.getGenerativeModel({
+      model: "gemini-2.5-flash",
+      systemInstruction:
+        "You are a Canadian business compliance expert. " +
+        "Given a business profile and a numbered list of permits/licences, " +
+        "return only the ones that are required or strongly recommended for this specific business. " +
+        "Be strict — exclude anything clearly irrelevant. " +
+        'Respond with JSON only: { "relevant": [{ "index": <number>, "reason": "<one sentence>" }, ...] }',
+      generationConfig: { responseMimeType: "application/json", temperature: 0.2 },
+    });
 
-    // Check if the user has already pasted a response
-    let raw: string;
-    try {
-      raw = await readFile(RESPONSE_FILE, "utf-8");
-    } catch {
-      return Response.json({
-        relevantForms: [],
-        stubMode: true,
-        stubPromptPath: "gemini-stub/prompt.txt",
-      } satisfies FilterLicensesResponse);
-    }
+    const result = await model.generateContent(prompt);
+    const raw = result.response.text();
 
     const parsed = JSON.parse(raw) as {
       relevant: Array<{ index: number; reason: string }>;
     };
 
-    // Empty placeholder response — treat as "not yet filled"
-    if (!parsed.relevant?.length) {
-      return Response.json({
-        relevantForms: [],
-        stubMode: true,
-        stubPromptPath: "gemini-stub/prompt.txt",
-      } satisfies FilterLicensesResponse);
-    }
+    const relevantForms: RelevantForm[] = (parsed.relevant ?? [])
+      .filter((r) => r.index >= 0 && r.index < allForms.length)
+      .map((r) => ({ ...allForms[r.index], reason: r.reason }));
 
-    const relevantForms: RelevantForm[] = parsed.relevant
-      .filter((r) => r.index >= 0 && r.index < allPermits.length)
-      .map((r) => ({ ...allPermits[r.index], reason: r.reason }));
-
-    return Response.json({ relevantForms, stubMode: true } satisfies FilterLicensesResponse);
+    return Response.json({ relevantForms } satisfies FilterLicensesResponse);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "Unknown error";
+    const isQuota = message.includes("429") || message.toLowerCase().includes("quota");
+    return Response.json(
+      { error: isQuota ? "AI service rate limit reached. Please try again shortly." : "AI service error." },
+      { status: isQuota ? 429 : 500 },
+    );
   }
-
-  // ── Live Gemini call ─────────────────────────────────────────────────────
-  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY);
-  const model = genAI.getGenerativeModel({
-    model: "gemini-2.0-flash",
-    systemInstruction: SYSTEM_INSTRUCTION,
-    generationConfig: { responseMimeType: "application/json", temperature: 0.2 },
-  });
-
-  const result = await model.generateContent(userPrompt);
-  const raw = result.response.text();
-
-  const parsed = JSON.parse(raw) as {
-    relevant: Array<{ index: number; reason: string }>;
-  };
-
-  const relevantForms: RelevantForm[] = (parsed.relevant ?? [])
-    .filter((r) => r.index >= 0 && r.index < allPermits.length)
-    .map((r) => ({ ...allPermits[r.index], reason: r.reason }));
-
-  return Response.json({ relevantForms } satisfies FilterLicensesResponse);
 }
