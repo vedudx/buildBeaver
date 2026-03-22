@@ -15,7 +15,7 @@ export function SiteHeader() {
             priority
           />
           <div className="leading-tight">
-            <span className="block text-sm font-bold tracking-tight text-brand-900">BuildBeaver</span>
+            <span className="block text-sm font-bold tracking-tight text-red-950">BuildBeaver</span>
             <span className="text-[11px] font-medium text-slate-500">by Maple Stack</span>
           </div>
         </Link>
