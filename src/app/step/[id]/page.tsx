@@ -2,6 +2,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { FormAssistant } from "@/features/form-assistant/ui/form-assistant";
 import { FormsEmbed } from "@/shared/ui/forms-embed";
+import { LicensesPanel } from "@/features/licenses/ui/licenses-panel";
 import { getStepById } from "@/shared/constants/steps";
 
 type StepPageProps = {
@@ -72,9 +73,11 @@ export default async function StepPage({ params }: StepPageProps) {
           ) : null}
         </div>
 
-        {/* RIGHT: embedded forms or fallback info panel */}
+        {/* RIGHT: AI permit finder for licenses, embedded forms for others, or info panel */}
         <div>
-          {hasForms ? (
+          {step.id === "licenses" ? (
+            <LicensesPanel />
+          ) : hasForms ? (
             <FormsEmbed forms={step.forms!} />
           ) : (
             <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
