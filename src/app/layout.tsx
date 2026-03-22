@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { IntakeProvider } from "@/entities/intake/model/intake-context";
 import { FormDataProvider } from "@/entities/form/model/form-context";
+import { ChatbotButton } from "@/features/chatbot/ui/chatbot-button";
 
 const plusJakarta = Plus_Jakarta_Sans({
   subsets: ["latin"],
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="font-sans antialiased">
         <IntakeProvider>
           <FormDataProvider>{children}</FormDataProvider>
+          <ChatbotButton />
         </IntakeProvider>
       </body>
     </html>
