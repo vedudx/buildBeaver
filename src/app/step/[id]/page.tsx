@@ -83,22 +83,17 @@ export default async function StepPage({ params }: StepPageProps) {
           ) : null}
 
           <StepCompleteButton stepId={id} />
-        </div>
 
-        {/* RIGHT: embedded forms or fallback info panel */}
-        <div>
-          {hasForms ? (
-            <FormsEmbed forms={step.forms!} />
-          ) : step.type !== "semi" ? (
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900">Information</h3>
-              <p className="mt-3 text-gray-700">
-                This step is guidance-only. Review the details on the left and proceed when
-                ready.
-              </p>
-            </div>
-          ) : null}
-        </div>
+        {hasForms ? (
+          <FormsEmbed forms={step.forms!} />
+        ) : step.type !== "semi" ? (
+          <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
+            <h3 className="text-lg font-semibold text-gray-900">Information</h3>
+            <p className="mt-3 text-gray-700 leading-relaxed">
+              This step is guidance-only. Review the details above and proceed when ready.
+            </p>
+          </div>
+        ) : null}
       </div>
     </main>
   );
