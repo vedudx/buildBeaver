@@ -4,7 +4,7 @@ import { PersonalizedRoadmap } from "@/features/roadmap/ui/personalized-roadmap"
 
 export default function RoadmapPage() {
   return (
-    <main className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-6 py-12">
+    <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-5 py-12 md:px-8">
       <Breadcrumb
         crumbs={[
           { label: "Intake", href: "/intake" },
