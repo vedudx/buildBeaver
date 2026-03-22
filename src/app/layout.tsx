@@ -4,6 +4,7 @@ import type { ReactNode } from "react";
 import { Plus_Jakarta_Sans } from "next/font/google";
 import { IntakeProvider } from "@/entities/intake/model/intake-context";
 import { FormDataProvider } from "@/entities/form/model/form-context";
+import { ProgressProvider } from "@/entities/progress/model/progress-context";
 import { SiteHeader } from "@/shared/ui/site-header";
 import { ChatbotButton } from "@/features/chatbot/ui/chatbot-button";
 
@@ -33,9 +34,11 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="font-sans antialiased">
         <IntakeProvider>
           <FormDataProvider>
-            <SiteHeader />
-            {children}
-            <ChatbotButton />
+            <ProgressProvider>
+              <SiteHeader />
+              {children}
+              <ChatbotButton />
+            </ProgressProvider>
           </FormDataProvider>
         </IntakeProvider>
       </body>

@@ -1,4 +1,6 @@
 import type { IntakeData, StepConfig } from "@/shared/types/business";
+import { MUNICIPAL_LICENSE_LINKS } from "@/shared/constants/municipal-licenses";
+import { CORE_SUPPORT_LINKS } from "@/shared/constants/resources";
 
 type RequirementHint = {
   title: string;
@@ -158,4 +160,17 @@ export function getLowLikelihoodRequirements(intake: IntakeData) {
   return [
     "Not every business needs a provincial operating permit, but municipal and industry-specific checks still matter.",
   ];
+}
+
+export function getLicenseResourceLinks(intake: IntakeData) {
+  const city = intake.city?.trim();
+  const links = [];
+
+  if (city && city !== "Other" && MUNICIPAL_LICENSE_LINKS[city]) {
+    links.push(MUNICIPAL_LICENSE_LINKS[city]);
+  }
+
+  links.push(CORE_SUPPORT_LINKS[1]);
+
+  return links;
 }
