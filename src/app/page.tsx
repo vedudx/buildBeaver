@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const STEPS = [
   {
@@ -74,12 +75,14 @@ export default function HomePage() {
       <header className="relative z-20 border-b border-emerald-900/5 bg-white/70 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
           <Link href="/" className="flex items-center gap-2">
-            <span
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-emerald-600 to-teal-700 text-lg text-white shadow-md shadow-emerald-600/25"
-              aria-hidden
-            >
-              🦫
-            </span>
+            <Image
+              src="/logo.png"
+              alt="BuildBeaver logo"
+              width={36}
+              height={36}
+              className="rounded-xl"
+              priority
+            />
             <div className="leading-tight">
               <span className="block text-sm font-bold tracking-tight text-emerald-900">
                 BuildBeaver
