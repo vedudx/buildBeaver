@@ -55,7 +55,7 @@ export const STEP_CONFIGS: StepConfig[] = [
         title: "BC Name Request",
         href: "https://www.names.bcregistry.gov.bc.ca/",
         authority: "BC Registries and Online Services",
-        estimatedCost: "$30",
+        estimatedCost: "$30, $130 for priority service",
         estimatedTimeline: "2–5 business days",
         embeddable: false,
       },
