@@ -2,6 +2,8 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import { useIntake } from "@/entities/intake/model/intake-context";
+import { useCurrentStep } from "@/features/chatbot/model/use-current-step";
 
 type Message = {
   role: "user" | "assistant";
@@ -15,6 +17,38 @@ export function ChatbotButton() {
   const [loading, setLoading] = useState(false);
   const bottomRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
+  const pageContext = useCurrentStep();
+  const { intakeData } = useIntake();
+
+  function buildUserContext(): string {
+    const parts: string[] = [
+      `Business type: ${intakeData.businessType}`,
+      `Province: ${intakeData.location}`,
+    ];
+    if (intakeData.businessName) {
+      parts.push(`Business name: ${intakeData.businessName}`);
+    }
+    parts.push("Available ownership structures: Sole Proprietorship, Corporation");
+    return parts.join(". ");
+  }
+
+  // Inject greeting whenever the panel opens fresh (no prior messages)
+  useEffect(() => {
+    if (open && messages.length === 0) {
+      setMessages([{ role: "assistant", content: pageContext.greeting }]);
+    }
+  }, [open]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Close panel and reset when user navigates to a different page
+  const prevContextLabel = useRef(pageContext.label);
+  useEffect(() => {
+    if (prevContextLabel.current !== pageContext.label) {
+      prevContextLabel.current = pageContext.label;
+      setOpen(false);
+      setMessages([]);
+      setInput("");
+    }
+  }, [pageContext.label]);
 
   useEffect(() => {
     if (open) {
@@ -36,7 +70,11 @@ export function ChatbotButton() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: next }),
+        body: JSON.stringify({
+          messages: next,
+          pageContext: pageContext.systemContext,
+          userContext: buildUserContext(),
+        }),
       });
 
       if (!res.ok || !res.body) throw new Error("Request failed");
@@ -88,16 +126,14 @@ export function ChatbotButton() {
               height={28}
               className="rounded-full"
             />
-            <span className="text-sm font-bold text-white">Ask BuildBeaver</span>
+            <div className="flex flex-col">
+              <span className="text-sm font-bold text-white">Ask BuildBeaver</span>
+              <span className="text-[11px] text-red-200">{pageContext.label}</span>
+            </div>
           </div>
 
           {/* Message list */}
           <div className="flex h-72 flex-col gap-3 overflow-y-auto px-4 py-3">
-            {messages.length === 0 && (
-              <p className="mt-auto text-center text-xs text-slate-400">
-                Hi! Ask me anything about starting a business in BC.
-              </p>
-            )}
             {messages.map((msg, i) => (
               <div
                 key={i}

@@ -1,14 +1,21 @@
 import OpenAI from "openai";
 
-const SYSTEM_PROMPT =
+const BASE_SYSTEM_PROMPT =
   "You are BuildBeaver, a friendly Canadian business guide. " +
   "Help users start and register their business in Canada, specifically BC. " +
-  "Be concise, warm, and practical. Use plain language.";
+  "Be concise, warm, and practical. Use plain language. " +
+  "You already know the user's business details — never ask them to repeat information you have been given.";
 
 export async function POST(req: Request) {
-  const { messages } = await req.json() as {
+  const { messages, pageContext, userContext } = await req.json() as {
     messages: { role: "user" | "assistant"; content: string }[];
+    pageContext?: string;
+    userContext?: string;
   };
+
+  const sections: string[] = [BASE_SYSTEM_PROMPT];
+  if (userContext) sections.push(`User's business profile: ${userContext}`);
+  if (pageContext) sections.push(`Current page context: ${pageContext}`);
 
   const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -16,7 +23,7 @@ export async function POST(req: Request) {
     model: "gpt-4o-mini",
     stream: true,
     messages: [
-      { role: "system", content: SYSTEM_PROMPT },
+      { role: "system", content: sections.join("\n\n") },
       ...messages,
     ],
   });
