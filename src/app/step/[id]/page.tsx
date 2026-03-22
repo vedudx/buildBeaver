@@ -21,7 +21,7 @@ export default async function StepPage({ params }: StepPageProps) {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 py-12">
       <div className="mb-6">
-        <Link href="/roadmap" className="text-sm font-medium text-emerald-700 hover:underline">
+        <Link href="/roadmap" className="text-sm font-medium text-red-800 hover:underline">
           ← Back to roadmap
         </Link>
       </div>
