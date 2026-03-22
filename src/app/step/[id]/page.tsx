@@ -4,6 +4,7 @@ import { FormAssistant } from "@/features/form-assistant/ui/form-assistant";
 import { LicensesChecklist } from "@/features/licenses/ui/licenses-checklist";
 import { LicensesGuidance } from "@/features/licenses/ui/licenses-guidance";
 import { SourceSupportPanel } from "@/features/support/ui/source-support-panel";
+import { StepCompleteButton } from "@/features/step/ui/step-complete-button";
 import { FormsEmbed } from "@/shared/ui/forms-embed";
 import { getStepById } from "@/shared/constants/steps";
 
@@ -75,6 +76,8 @@ export default async function StepPage({ params }: StepPageProps) {
               contacts={step.supportContacts}
             />
           ) : null}
+
+          <StepCompleteButton stepId={id} />
         </div>
 
         {/* RIGHT: embedded forms or fallback info panel */}

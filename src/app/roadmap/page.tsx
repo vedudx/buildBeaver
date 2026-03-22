@@ -1,11 +1,17 @@
 import Link from "next/link";
+import { Breadcrumb } from "@/shared/ui/breadcrumb";
 import { PersonalizedRoadmap } from "@/features/roadmap/ui/personalized-roadmap";
 
 export default function RoadmapPage() {
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-3xl flex-col px-6 py-12">
-      <h1 className="text-3xl font-bold text-gray-900">Your Roadmap</h1>
-      <p className="mt-2 text-gray-600">Follow each step in order and use the official BC support links when you need confirmation.</p>
+      <Breadcrumb
+        crumbs={[
+          { label: "Intake", href: "/intake" },
+          { label: "Roadmap" },
+        ]}
+      />
+      <h1 className="text-3xl font-bold text-gray-900">Your Business Roadmap</h1>
 
       <PersonalizedRoadmap />
 
