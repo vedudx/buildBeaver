@@ -1,6 +1,6 @@
-import OpenAI from "openai";
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const BASE_SYSTEM_PROMPT = `You are an AI form assistant inside "BuildBeaver", a web app that helps users start a business in Canada.
+const SYSTEM_PROMPT = `You are an AI form assistant inside "BuildBeaver", a web app that helps users start a business in Canada.
 
 ROLE
 Help users understand and complete form fields in the current step.
@@ -49,29 +49,36 @@ export async function POST(req: Request) {
       fieldOptions?: string[];
     };
 
-  const sections: string[] = [BASE_SYSTEM_PROMPT];
-  if (userContext) sections.push(`User's business profile: ${userContext}`);
-  if (pageContext) sections.push(`Current step: ${pageContext}`);
-  if (currentField) sections.push(`Current field the user is focused on: ${currentField}`);
+  // Build the system instruction with all available context
+  const contextSections: string[] = [SYSTEM_PROMPT];
+  if (userContext) contextSections.push(`User's business profile: ${userContext}`);
+  if (pageContext) contextSections.push(`Current step: ${pageContext}`);
+  if (currentField) contextSections.push(`Current field the user is focused on: ${currentField}`);
   if (fieldOptions?.length) {
-    sections.push(`Available options for this field: ${fieldOptions.join(", ")}`);
+    contextSections.push(`Available options for this field: ${fieldOptions.join(", ")}`);
   }
 
-  const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+  // Gemini uses "user" / "model" roles (not "assistant")
+  // The last message must be from the user — split history from the final prompt
+  const history = messages.slice(0, -1).map((m) => ({
+    role: m.role === "assistant" ? "model" : "user",
+    parts: [{ text: m.content }],
+  }));
+  const userMessage = messages[messages.length - 1].content;
 
-  const stream = await client.chat.completions.create({
-    model: "gpt-4o-mini",
-    stream: true,
-    messages: [
-      { role: "system", content: sections.join("\n\n") },
-      ...messages,
-    ],
+  const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? "");
+  const model = genAI.getGenerativeModel({
+    model: "gemini-2.0-flash",
+    systemInstruction: contextSections.join("\n\n"),
   });
+
+  const chat = model.startChat({ history });
+  const result = await chat.sendMessageStream(userMessage);
 
   const readable = new ReadableStream({
     async start(controller) {
-      for await (const chunk of stream) {
-        const text = chunk.choices[0]?.delta?.content ?? "";
+      for await (const chunk of result.stream) {
+        const text = chunk.text();
         if (text) controller.enqueue(new TextEncoder().encode(text));
       }
       controller.close();
