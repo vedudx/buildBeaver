@@ -46,7 +46,7 @@ export default function IntakePage() {
             <select
               value={businessType}
               onChange={(event) => setBusinessType(event.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
             >
               {BUSINESS_TYPES.map(({ value, label }) => (
                 <option key={value} value={value}>
@@ -63,7 +63,7 @@ export default function IntakePage() {
             <select
               value={location}
               onChange={(event) => setLocation(event.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
             >
               {LOCATIONS.map(({ value, label }) => (
                 <option key={value} value={value}>
@@ -110,7 +110,7 @@ export default function IntakePage() {
 
         <button
           type="submit"
-          className="mt-6 rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+          className="mt-6 rounded-md bg-red-800 px-4 py-2 text-sm font-semibold text-white hover:bg-red-900"
         >
           Continue
         </button>
