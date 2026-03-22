@@ -178,7 +178,7 @@ function HeroRoadmapStack() {
               <p className="mt-4 text-center text-xs text-slate-400">+ 2 more steps inside the app</p>
               <Link
                 href="/intake"
-                className="mt-5 flex w-full items-center justify-center rounded-xl bg-gradient-to-b from-slate-800 to-slate-950 py-3 text-sm font-semibold text-white shadow-[0_8px_20px_-4px_rgba(15,23,42,0.45),inset_0_1px_0_rgba(255,255,255,0.12)] transition hover:from-slate-700 hover:to-slate-900"
+                className="mt-5 flex w-full items-center justify-center rounded-xl bg-gradient-to-b from-red-800 to-red-950 py-3 text-sm font-semibold text-white shadow-[0_8px_24px_-4px_rgba(127,29,29,0.5),inset_0_1px_0_rgba(255,255,255,0.15)] transition hover:from-red-700 hover:to-red-900"
               >
                 Begin intake
               </Link>
@@ -204,38 +204,42 @@ function HeroRoadmapStack() {
 
 export default function HomePage() {
   return (
-    <div className="relative min-h-screen overflow-x-hidden bg-[#faf6f6] text-slate-900">
+    <div className="relative min-h-screen overflow-x-hidden bg-[#f7f3f2] text-slate-900">
       {/* Layered depth background */}
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.95)_0%,transparent_45%),radial-gradient(ellipse_90%_55%_at_50%_-15%,rgba(127,29,29,0.12),transparent_55%)]"
+        className="pointer-events-none absolute inset-0 bg-[linear-gradient(165deg,rgba(255,255,255,0.97)_0%,rgba(250,246,246,0.5)_45%,transparent_72%),radial-gradient(ellipse_80%_50%_at_50%_-18%,rgba(127,29,29,0.11),transparent_58%)]"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute -top-32 left-1/2 h-[520px] w-[min(1100px,100vw)] -translate-x-1/2 rounded-[100%] bg-[radial-gradient(circle,rgba(153,27,27,0.18)_0%,transparent_68%)] blur-3xl"
+        className="pointer-events-none absolute -top-40 left-1/2 h-[560px] w-[min(1100px,100vw)] -translate-x-1/2 rounded-[100%] bg-[radial-gradient(circle,rgba(185,28,28,0.14)_0%,transparent_70%)] blur-3xl"
       />
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-0 opacity-[0.4] [background-image:linear-gradient(rgba(15,23,42,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.03)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:radial-gradient(ellipse_80%_60%_at_50%_30%,black,transparent)]"
+        className="pointer-events-none absolute bottom-0 left-0 right-0 h-[50vh] bg-[radial-gradient(ellipse_90%_80%_at_50%_100%,rgba(127,29,29,0.04),transparent)]"
+      />
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.35] [background-image:linear-gradient(rgba(15,23,42,0.028)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,0.028)_1px,transparent_1px)] [background-size:56px_56px] [mask-image:radial-gradient(ellipse_85%_65%_at_50%_28%,black,transparent)]"
       />
 
       <main className="relative z-10">
         {/* Hero */}
-        <section className="relative mx-auto max-w-6xl px-5 pb-16 pt-12 md:px-8 md:pb-24 md:pt-16">
+        <section className="relative mx-auto max-w-6xl px-5 pb-20 pt-10 md:px-8 md:pb-28 md:pt-14">
           <IsometricBlocks />
-          <div className="grid items-center gap-14 lg:grid-cols-[1fr_minmax(0,440px)] lg:gap-16">
-            <div className="relative z-[1]">
-              <p className="inline-flex items-center gap-2 rounded-full border border-red-200/90 bg-white/90 px-3 py-1.5 text-xs font-semibold uppercase tracking-[0.12em] text-red-900 shadow-[0_4px_16px_-4px_rgba(127,29,29,0.15),inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-sm">
+          <div className="grid items-center gap-14 lg:grid-cols-[1fr_minmax(0,440px)] lg:gap-20 lg:items-start">
+            <div className="relative z-[1] max-w-xl lg:pt-2">
+              <p className="inline-flex items-center gap-2 rounded-full border border-red-200/70 bg-white/80 px-3.5 py-1.5 text-[11px] font-semibold uppercase tracking-[0.18em] text-red-900/90 shadow-[0_2px_20px_-4px_rgba(127,29,29,0.12),inset_0_1px_0_rgba(255,255,255,0.95)] ring-1 ring-red-900/[0.04] backdrop-blur-md">
                 <span className="relative flex h-2 w-2">
-                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-40" />
-                  <span className="relative inline-flex h-2 w-2 rounded-full bg-red-600" />
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-400/50" />
+                  <span className="relative inline-flex h-2 w-2 rounded-full bg-red-600 shadow-[0_0_0_2px_rgba(254,202,202,0.6)]" />
                 </span>
                 B.C. business guide
               </p>
-              <h1 className="mt-6 text-4xl font-extrabold leading-[1.08] tracking-tight text-slate-900 md:text-5xl lg:text-[3.25rem]">
+              <h1 className="mt-7 text-balance text-[2.125rem] font-extrabold leading-[1.06] tracking-[-0.02em] text-slate-900 sm:text-5xl lg:text-[3.35rem]">
                 Start your business
                 <br />
-                <span className="bg-gradient-to-r from-red-800 via-red-700 to-red-950 bg-clip-text text-transparent drop-shadow-[0_2px_12px_rgba(127,29,29,0.15)]">
+                <span className="bg-gradient-to-r from-red-800 via-red-700 to-red-950 bg-clip-text text-transparent">
                   from idea to launch.
                 </span>
               </h1>
@@ -246,13 +250,13 @@ export default function HomePage() {
               <div className="mt-9 flex flex-wrap items-center gap-3">
                 <Link
                   href="/intake"
-                  className="inline-flex items-center justify-center rounded-full bg-gradient-to-b from-red-800 to-red-950 px-8 py-3.5 text-sm font-bold text-white shadow-[0_12px_32px_-8px_rgba(127,29,29,0.55),inset_0_1px_0_rgba(255,255,255,0.15)] transition hover:from-red-700 hover:to-red-900 hover:shadow-[0_16px_40px_-6px_rgba(127,29,29,0.45)]"
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-full bg-gradient-to-b from-red-800 to-red-950 px-8 py-3.5 text-sm font-bold text-white shadow-[0_12px_32px_-8px_rgba(127,29,29,0.55),inset_0_1px_0_rgba(255,255,255,0.15)] transition hover:from-red-700 hover:to-red-900 hover:shadow-[0_16px_40px_-6px_rgba(127,29,29,0.45)] active:scale-[0.98]"
                 >
                   Get started — free
                 </Link>
                 <Link
                   href="/roadmap"
-                  className="inline-flex items-center justify-center rounded-full border border-slate-200/90 bg-white/90 px-8 py-3.5 text-sm font-semibold text-slate-700 shadow-[0_4px_14px_-4px_rgba(15,23,42,0.08)] backdrop-blur-sm transition hover:border-red-200 hover:bg-red-50/60"
+                  className="inline-flex min-h-[44px] items-center justify-center rounded-full border border-slate-200/80 bg-white/90 px-8 py-3.5 text-sm font-semibold text-slate-700 shadow-[0_2px_12px_-2px_rgba(15,23,42,0.06)] ring-1 ring-slate-900/[0.04] backdrop-blur-sm transition hover:border-red-200/90 hover:bg-red-50/70 hover:text-red-950"
                 >
                   Preview roadmap
                 </Link>
@@ -279,46 +283,63 @@ export default function HomePage() {
               </ul>
             </div>
 
-            <HeroRoadmapStack />
+            <div className="relative lg:justify-self-end">
+              <div
+                aria-hidden
+                className="pointer-events-none absolute inset-0 -z-10 -translate-x-4 translate-y-6 scale-95 rounded-[2rem] bg-gradient-to-tr from-red-200/20 via-transparent to-transparent blur-2xl lg:translate-x-0"
+              />
+              <HeroRoadmapStack />
+            </div>
           </div>
         </section>
 
         {/* Steps grid */}
-        <section className="relative border-y border-red-950/10 bg-gradient-to-b from-white/95 via-white/85 to-slate-50/40 py-16 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] backdrop-blur-sm">
+        <section className="relative border-y border-red-950/[0.07] bg-gradient-to-b from-white via-[#fdfcfb] to-slate-50/50 py-20 shadow-[inset_0_1px_0_rgba(255,255,255,0.95)]">
           <div
             aria-hidden
-            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(127,29,29,0.06),transparent)]"
+            className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_75%_45%_at_50%_0%,rgba(127,29,29,0.05),transparent)]"
           />
           <div className="relative mx-auto max-w-6xl px-5 md:px-8">
             <div className="max-w-2xl">
-              <h2 className="text-2xl font-bold tracking-tight text-slate-900 md:text-3xl">
+              <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-red-800/70">
+                The journey
+              </p>
+              <h2 className="mt-2 text-balance text-3xl font-bold tracking-[-0.02em] text-slate-900 md:text-[2rem]">
                 Everything in one path
               </h2>
-              <p className="mt-3 text-slate-600">
+              <p className="mt-3 max-w-lg text-[0.9375rem] leading-relaxed text-slate-600">
                 Tap any step on the roadmap for explanations, links, and form help where it
                 matters.
               </p>
             </div>
-            <div className="mt-10 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+            <div className="mt-12 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
               {STEPS.map((step) => (
                 <article
                   key={step.id}
-                  className="group relative flex flex-col overflow-hidden rounded-2xl border border-slate-200/80 bg-gradient-to-b from-white to-slate-50/90 p-5 shadow-[0_2px_8px_rgba(15,23,42,0.04),0_16px_32px_-12px_rgba(127,29,29,0.08)] ring-1 ring-slate-900/[0.04] transition duration-300 hover:-translate-y-1 hover:border-red-200/80 hover:shadow-[0_8px_24px_-8px_rgba(15,23,42,0.12),0_20px_40px_-16px_rgba(127,29,29,0.1)]"
+                  className="group relative flex flex-col overflow-hidden rounded-[1.25rem] border border-slate-200/70 bg-gradient-to-b from-white to-slate-50/80 p-[1.125rem] shadow-[0_2px_8px_rgba(15,23,42,0.035),0_20px_40px_-16px_rgba(127,29,29,0.07)] ring-1 ring-slate-900/[0.03] transition duration-300 ease-out hover:-translate-y-[3px] hover:border-red-200/70 hover:shadow-[0_12px_28px_-10px_rgba(15,23,42,0.1),0_24px_48px_-20px_rgba(127,29,29,0.12)]"
                 >
                   <div
                     aria-hidden
-                    className="pointer-events-none absolute -right-8 -top-8 h-24 w-24 rounded-full bg-gradient-to-br from-red-500/10 to-transparent blur-2xl transition-opacity group-hover:opacity-100"
+                    className="pointer-events-none absolute -right-10 -top-10 h-32 w-32 rounded-full bg-gradient-to-br from-red-500/[0.12] to-transparent blur-2xl opacity-80 transition-opacity group-hover:opacity-100"
                   />
-                  <span className="relative text-xs font-bold tabular-nums text-red-800">
+                  <div
+                    aria-hidden
+                    className="absolute left-0 right-0 top-0 h-px bg-gradient-to-r from-transparent via-red-300/35 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+                  />
+                  <span className="relative inline-flex w-fit rounded-md bg-red-50/90 px-2 py-0.5 text-[11px] font-bold tabular-nums tracking-wide text-red-900 ring-1 ring-red-100">
                     {step.number}
                   </span>
-                  <h3 className="relative mt-2 text-base font-semibold text-slate-900">{step.label}</h3>
-                  <p className="relative mt-1 flex-1 text-sm text-slate-600">{step.short}</p>
+                  <h3 className="relative mt-3 text-[0.9375rem] font-semibold leading-snug text-slate-900">
+                    {step.label}
+                  </h3>
+                  <p className="relative mt-1.5 flex-1 text-sm leading-relaxed text-slate-600">
+                    {step.short}
+                  </p>
                   <Link
                     href={`/step/${step.id}`}
-                    className="relative mt-4 inline-flex text-sm font-semibold text-red-800 transition group-hover:translate-x-0.5 group-hover:underline"
+                    className="relative mt-5 inline-flex items-center gap-1 text-sm font-semibold text-red-800 transition group-hover:gap-1.5 group-hover:underline"
                   >
-                    Learn more →
+                    Learn more <span aria-hidden>→</span>
                   </Link>
                 </article>
               ))}
@@ -327,30 +348,35 @@ export default function HomePage() {
         </section>
 
         {/* Features */}
-        <section className="mx-auto max-w-6xl px-5 py-16 md:px-8 md:py-20">
-          <h2 className="text-center text-2xl font-bold text-slate-900 md:text-3xl">
-            Why use BuildBeaver?
-          </h2>
-          <p className="mx-auto mt-3 max-w-xl text-center text-slate-600">
-            Less googling, fewer missed steps — more confidence as you launch.
-          </p>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {FEATURES.map((f) => (
+        <section className="mx-auto max-w-6xl px-5 py-20 md:px-8 md:py-24">
+          <div className="mx-auto max-w-2xl text-center">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.2em] text-red-800/70">
+              Why BuildBeaver
+            </p>
+            <h2 className="mt-2 text-balance text-3xl font-bold tracking-[-0.02em] text-slate-900 md:text-[2rem]">
+              Clarity for every founder
+            </h2>
+            <p className="mx-auto mt-3 max-w-lg text-[0.9375rem] leading-relaxed text-slate-600">
+              Less googling, fewer missed steps — more confidence as you launch.
+            </p>
+          </div>
+          <div className="mt-14 grid gap-6 md:grid-cols-3">
+            {FEATURES.map((f, i) => (
               <div
                 key={f.title}
-                className="group relative overflow-hidden rounded-2xl border border-slate-200/90 bg-white p-6 text-center shadow-[0_4px_16px_-6px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/[0.03] transition duration-300 hover:-translate-y-0.5 hover:shadow-[0_12px_28px_-10px_rgba(127,29,29,0.12)]"
+                className={`group relative overflow-hidden rounded-3xl border border-slate-200/80 bg-white p-7 text-center shadow-[0_4px_20px_-12px_rgba(15,23,42,0.08)] ring-1 ring-slate-900/[0.025] transition duration-300 hover:-translate-y-1 hover:shadow-[0_16px_40px_-16px_rgba(127,29,29,0.14)] ${i === 1 ? "md:-translate-y-1 md:shadow-[0_12px_28px_-12px_rgba(127,29,29,0.1)]" : ""}`}
               >
                 <div
                   aria-hidden
-                  className="pointer-events-none absolute inset-0 bg-gradient-to-b from-red-50/50 to-transparent opacity-0 transition-opacity group-hover:opacity-100"
+                  className="pointer-events-none absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_0%,rgba(254,226,226,0.35),transparent_65%)] opacity-0 transition-opacity group-hover:opacity-100"
                 />
                 <span
-                  className="relative mx-auto flex h-14 w-14 items-center justify-center rounded-2xl bg-gradient-to-b from-white to-red-50 text-xl text-red-800 shadow-[0_8px_20px_-6px_rgba(127,29,29,0.25),inset_0_1px_0_rgba(255,255,255,0.95)] ring-1 ring-red-200/60 transition group-hover:scale-[1.04] group-hover:shadow-[0_12px_28px_-8px_rgba(127,29,29,0.3)]"
+                  className="relative mx-auto flex h-[3.25rem] w-[3.25rem] items-center justify-center rounded-2xl bg-gradient-to-b from-white to-red-50/90 text-[1.1rem] text-red-700 shadow-[0_4px_16px_-4px_rgba(127,29,29,0.2),inset_0_1px_0_rgba(255,255,255,0.9)] ring-1 ring-red-200/50 transition duration-300 group-hover:scale-[1.04] group-hover:shadow-[0_8px_24px_-6px_rgba(127,29,29,0.28)]"
                   aria-hidden
                 >
                   {f.icon}
                 </span>
-                <h3 className="relative mt-4 text-lg font-bold text-slate-900">{f.title}</h3>
+                <h3 className="relative mt-5 text-base font-bold text-slate-900">{f.title}</h3>
                 <p className="relative mt-2 text-sm leading-relaxed text-slate-600">{f.body}</p>
               </div>
             ))}
@@ -358,31 +384,40 @@ export default function HomePage() {
         </section>
 
         {/* CTA band */}
-        <section className="relative overflow-hidden border-t border-red-950/25 bg-gradient-to-br from-red-900 via-red-950 to-neutral-950 py-16 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.08)]">
+        <section className="relative overflow-hidden border-t border-red-950/30 bg-gradient-to-br from-[#7f1d1d] via-red-950 to-[#0c0a09] py-20 text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]">
           <div
             aria-hidden
-            className="pointer-events-none absolute -right-20 top-0 h-64 w-64 rounded-full bg-red-500/20 blur-3xl"
+            className="pointer-events-none absolute -right-24 top-0 h-72 w-72 rounded-full bg-red-400/15 blur-3xl"
           />
           <div
             aria-hidden
-            className="pointer-events-none absolute -bottom-16 left-1/4 h-48 w-48 rounded-full bg-amber-500/10 blur-3xl"
+            className="pointer-events-none absolute -bottom-20 left-1/3 h-56 w-56 rounded-full bg-amber-400/[0.07] blur-3xl"
+          />
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 bg-[linear-gradient(180deg,transparent_0%,rgba(0,0,0,0.15)_100%)]"
           />
           <div className="relative mx-auto max-w-6xl px-5 text-center md:px-8">
-            <h2 className="text-2xl font-bold md:text-3xl">Ready to map your launch?</h2>
-            <p className="mx-auto mt-3 max-w-lg text-red-100/90">
+            <div className="mx-auto mb-2 h-px w-12 bg-gradient-to-r from-transparent via-white/40 to-transparent" />
+            <h2 className="text-balance text-2xl font-bold tracking-[-0.02em] md:text-[1.875rem]">
+              Ready to map your launch?
+            </h2>
+            <p className="mx-auto mt-3 max-w-md text-[0.9375rem] leading-relaxed text-red-100/85">
               Answer a few questions — we&apos;ll open your personalized roadmap.
             </p>
             <Link
               href="/intake"
-              className="mt-8 inline-flex rounded-full bg-white px-8 py-3.5 text-sm font-bold text-red-950 shadow-[0_4px_0_rgba(0,0,0,0.12),0_16px_40px_-8px_rgba(0,0,0,0.35)] transition hover:-translate-y-0.5 hover:bg-red-50 hover:shadow-[0_6px_0_rgba(0,0,0,0.1),0_20px_48px_-6px_rgba(0,0,0,0.4)]"
+              className="mt-9 inline-flex min-h-[44px] items-center justify-center rounded-full bg-white px-9 py-3.5 text-sm font-bold text-red-950 shadow-[0_4px_0_rgba(0,0,0,0.15),0_20px_44px_-10px_rgba(0,0,0,0.45)] ring-1 ring-white/20 transition hover:-translate-y-0.5 hover:bg-red-50 hover:shadow-[0_6px_0_rgba(0,0,0,0.12),0_24px_52px_-8px_rgba(0,0,0,0.5)] active:translate-y-px active:shadow-[0_2px_0_rgba(0,0,0,0.12)]"
             >
               Start the intake
             </Link>
           </div>
         </section>
 
-        <footer className="border-t border-slate-200 bg-white py-8 text-center text-sm text-slate-500 shadow-[inset_0_1px_0_rgba(255,255,255,1)]">
-          <p>BuildBeaver · Maple Stack · For informational guidance only</p>
+        <footer className="border-t border-slate-200/90 bg-[#fafafa] py-10 text-center">
+          <p className="text-[13px] tracking-wide text-slate-500">
+            BuildBeaver · Maple Stack · For informational guidance only
+          </p>
         </footer>
       </main>
     </div>

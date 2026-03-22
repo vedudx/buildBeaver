@@ -79,7 +79,7 @@ function gstRegistrationLine(answer: GstThresholdAnswer): string {
 }
 
 const inputClassName =
-  "w-full rounded-lg border border-neutral-200 bg-white px-3 py-2.5 text-sm text-neutral-900 shadow-sm outline-none transition placeholder:text-neutral-400 focus:border-brand-600/80 focus:ring-2 focus:ring-brand-600/20";
+  "w-full rounded-lg border border-neutral-200 bg-white px-3 py-2.5 text-sm text-neutral-900 shadow-sm outline-none transition placeholder:text-neutral-400 focus:border-red-600/80 focus:ring-2 focus:ring-red-600/20";
 
 const labelClassName = "mb-1.5 block text-sm font-medium text-neutral-800";
 
@@ -162,7 +162,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
   return (
     <div className="overflow-hidden rounded-2xl border border-neutral-200/80 bg-white shadow-sm ring-1 ring-black/[0.04]">
       <div className="border-b border-neutral-100 bg-neutral-50/80 px-6 py-5">
-        <p className="text-xs font-semibold uppercase tracking-wide text-brand-600">
+        <p className="text-xs font-semibold uppercase tracking-wide text-red-800">
           Form Assistant
         </p>
         <h3 className="mt-1 text-lg font-semibold tracking-tight text-neutral-900">
@@ -269,7 +269,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
                         onClick={() => updateField("gst_threshold", value)}
                         className={`rounded-lg border px-4 py-2 text-sm font-medium transition ${
                           selected
-                            ? "border-brand-600 bg-brand-50 text-brand-900"
+                            ? "border-red-800 bg-red-50 text-red-950"
                             : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300"
                         }`}
                       >
@@ -301,7 +301,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
           type="button"
           onClick={handleGenerate}
           disabled={isGenerating}
-          className="inline-flex items-center justify-center gap-2 rounded-lg bg-brand-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-brand-700 disabled:cursor-not-allowed disabled:opacity-70"
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-red-800 px-4 py-2.5 text-sm font-semibold text-white shadow-[0_6px_20px_-4px_rgba(127,29,29,0.45)] transition hover:bg-red-900 disabled:cursor-not-allowed disabled:opacity-70"
         >
           {isGenerating ? (
             <>
@@ -324,7 +324,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
           Copy All
         </button>
         {copied ? (
-          <span className="text-sm font-medium text-brand-600">Copied to clipboard</span>
+          <span className="text-sm font-medium text-red-800">Copied to clipboard</span>
         ) : null}
       </div>
 

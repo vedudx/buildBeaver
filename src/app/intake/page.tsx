@@ -80,7 +80,7 @@ export default function IntakePage() {
             <select
               value={city}
               onChange={(event) => setCity(event.target.value)}
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
             >
               <option value="">Select your city</option>
               {BC_CITIES.map((c) => (
@@ -103,7 +103,7 @@ export default function IntakePage() {
               value={businessName}
               onChange={(event) => setBusinessName(event.target.value)}
               placeholder="e.g. Acme Consulting Ltd."
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-red-200 focus:ring"
             />
           </label>
         </div>
