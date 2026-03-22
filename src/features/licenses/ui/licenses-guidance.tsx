@@ -1,22 +1,22 @@
 "use client";
 
 import { useIntake } from "@/entities/intake/model/intake-context";
-import { BC_ADVISOR_CONTACT, CORE_SUPPORT_LINKS } from "@/shared/constants/resources";
+import { BC_ADVISOR_CONTACT } from "@/shared/constants/resources";
 import {
+  getLicenseResourceLinks,
   getLikelyRequirements,
-  getLowLikelihoodRequirements,
 } from "@/shared/lib/business-profile";
 
 export function LicensesGuidance() {
   const { intakeData } = useIntake();
   const city = intakeData.city?.trim();
   const requirements = getLikelyRequirements(intakeData);
-  const lowerPriority = getLowLikelihoodRequirements(intakeData);
+  const resourceLinks = getLicenseResourceLinks(intakeData);
 
   return (
     <div className="space-y-6">
       <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-        <h3 className="text-lg font-semibold text-gray-900">Likely requirements</h3>
+        <h3 className="text-lg font-semibold text-gray-900">Requirements to verify</h3>
         <p className="mt-2 text-sm text-gray-600">
           {city
             ? `These are the first items to verify for your business in ${city}.`
@@ -33,27 +33,19 @@ export function LicensesGuidance() {
       </section>
 
       <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-        <h3 className="text-lg font-semibold text-gray-900">Probably not first-order blockers</h3>
-        <ul className="mt-4 list-disc space-y-2 pl-5 text-sm text-gray-700">
-          {lowerPriority.map((item) => (
-            <li key={item}>{item}</li>
-          ))}
-        </ul>
-      </section>
-
-      <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
         <h3 className="text-lg font-semibold text-gray-900">Next actions</h3>
         <ol className="mt-4 list-decimal space-y-2 pl-5 text-sm text-gray-700">
-          <li>Search BizPaL using your city, business activity and operating model.</li>
+          <li>Start with your municipal licence page and confirm the exact licence type for your activity.</li>
           <li>Confirm local municipal rules before signing a lease, renovating or opening.</li>
+          <li>Use BizPaL for provincial or federal permits that may apply beyond the city licence.</li>
           <li>Use a provincial advisor if the permit path is unclear or the business is regulated.</li>
         </ol>
       </section>
 
       <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-        <h3 className="text-lg font-semibold text-gray-900">Official sources</h3>
+        <h3 className="text-lg font-semibold text-gray-900">Where to apply</h3>
         <div className="mt-4 space-y-3">
-          {CORE_SUPPORT_LINKS.slice(0, 2).map((link) => (
+          {resourceLinks.map((link) => (
             <a
               key={link.href}
               href={link.href}
