@@ -6,10 +6,10 @@
 
 :root {
   color-scheme: light;
-  --bc-forest: #0d4f3c;
-  --bc-leaf: #1a936f;
-  --bc-mint: #88d4ab;
-  --bc-cream: #f4f7f5;
+  --bc-deep-red: #7f1d1d;
+  --bc-red: #991b1b;
+  --bc-red-light: #fecaca;
+  --bc-cream: #faf6f6;
   --bc-ink: #0f172a;
   --bc-muted: #64748b;
 }
