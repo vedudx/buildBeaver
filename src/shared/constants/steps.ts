@@ -374,12 +374,21 @@ export const STEP_CONFIGS: StepConfig[] = [
       "Track WorkSafeBC assessable earnings for annual reporting.",
     ],
     type: "info",
+    optionalLink: {
+      href: "https://www2.gov.bc.ca/gov/content/taxes/sales-taxes/pst/publications/small-business-guide",
+      label: "Small business guide to PST",
+    },
     sourceLinks: [
       BC_RESOURCE_HUB,
       {
         label: "Small business guide to PST",
         href: "https://www2.gov.bc.ca/gov/content/taxes/sales-taxes/pst/publications/small-business-guide",
         note: "Important for businesses selling taxable goods or software in B.C.",
+      },
+      {
+        label: "CRA keeping records",
+        href: "https://www.canada.ca/en/revenue-agency/services/tax/businesses/topics/keeping-records.html",
+        note: "Official CRA guidance on keeping business records and source documents.",
       },
     ],
   },

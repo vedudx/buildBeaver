@@ -1,7 +1,7 @@
 "use client";
 
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useState, useTransition } from "react";
 import { useIntake } from "@/entities/intake/model/intake-context";
 import {
   BUSINESS_TYPES,
@@ -21,6 +21,7 @@ export default function IntakePage() {
   const [city, setCity] = useState(intakeData.city || "");
   const [businessName, setBusinessName] = useState(intakeData.businessName || "");
   const [cityError, setCityError] = useState("");
+  const [isPending, startTransition] = useTransition();
   const canContinue = Boolean(city.trim());
 
   function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
@@ -32,7 +33,9 @@ export default function IntakePage() {
 
     setCityError("");
     setIntakeData({ businessType, location, city, businessName });
-    router.push("/roadmap");
+    startTransition(() => {
+      router.push("/roadmap");
+    });
   }
 
   return (
@@ -93,7 +96,6 @@ export default function IntakePage() {
                   setCityError("");
                 }
               }}
-              required
               aria-invalid={cityError ? "true" : "false"}
               className={`w-full rounded-md border px-3 py-2 text-sm outline-none focus:ring ${
                 cityError
@@ -130,10 +132,10 @@ export default function IntakePage() {
 
         <button
           type="submit"
-          disabled={!canContinue}
+          disabled={!canContinue || isPending}
           className="mt-6 rounded-md bg-red-800 px-4 py-2 text-sm font-semibold text-white hover:bg-red-900 disabled:cursor-not-allowed disabled:bg-red-300"
         >
-          Continue
+          {isPending ? "Continuing..." : "Continue"}
         </button>
       </form>
     </main>

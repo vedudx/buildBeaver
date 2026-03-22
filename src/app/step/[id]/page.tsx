@@ -1,13 +1,14 @@
 import Link from "next/link";
 import { notFound } from "next/navigation";
+import { AccountingGuidance } from "@/features/accounting/ui/accounting-guidance";
 import { FormAssistant } from "@/features/form-assistant/ui/form-assistant";
 import { LicensesGuidance } from "@/features/licenses/ui/licenses-guidance";
+import { LicensesPanel } from "@/features/licenses/ui/licenses-panel";
 import { SourceSupportPanel } from "@/features/support/ui/source-support-panel";
 import { StepCompleteButton } from "@/features/step/ui/step-complete-button";
-import { FormsEmbed } from "@/shared/ui/forms-embed";
-import { LicensesPanel } from "@/features/licenses/ui/licenses-panel";
-import { getStepById } from "@/shared/constants/steps";
 import { StepProgressBar } from "@/features/step/ui/step-progress-bar";
+import { FormsEmbed } from "@/shared/ui/forms-embed";
+import { getStepById } from "@/shared/constants/steps";
 
 type StepPageProps = {
   params: Promise<{ id: string }>;
@@ -21,7 +22,7 @@ export default async function StepPage({ params }: StepPageProps) {
     notFound();
   }
 
-  const hasForms = step.forms && step.forms.length > 0;
+  const hasForms = Boolean(step.forms?.length);
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-5 py-12 md:px-8">
@@ -33,11 +34,10 @@ export default async function StepPage({ params }: StepPageProps) {
       </div>
 
       <div className="flex flex-col gap-10">
-        {/* Overview card */}
         <section className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
           <h1 className="text-2xl font-bold text-gray-900 sm:text-3xl">{step.title}</h1>
-          <p className="mt-3 text-gray-700 leading-relaxed">{step.shortExplanation}</p>
-          <ul className="mt-4 list-disc space-y-2 pl-5 text-gray-700 leading-relaxed">
+          <p className="mt-3 leading-relaxed text-gray-700">{step.shortExplanation}</p>
+          <ul className="mt-4 list-disc space-y-2 pl-5 leading-relaxed text-gray-700">
             {step.bulletPoints.map((point) => (
               <li key={point}>{point}</li>
             ))}
@@ -54,19 +54,14 @@ export default async function StepPage({ params }: StepPageProps) {
           ) : null}
         </section>
 
-        {/* Form assistant — prepare answers before opening the government form */}
         {step.type === "form" ? <FormAssistant step={step} /> : null}
-
-        {/* Government forms / external links */}
-        {hasForms ? <FormsEmbed forms={step.forms!} /> : null}
-
-        {/* Licenses & permits guidance */}
         {step.type === "semi" ? <LicensesGuidance /> : null}
+        {step.id === "accounting" ? <AccountingGuidance /> : null}
 
-        {step.type === "info" && !hasForms ? (
+        {step.type === "info" && !hasForms && step.id !== "accounting" ? (
           <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
             <h2 className="text-lg font-semibold text-gray-900">Information</h2>
-            <p className="mt-3 text-gray-700 leading-relaxed">
+            <p className="mt-3 leading-relaxed text-gray-700">
               This step is guidance-only. Review the details above and proceed when you are ready
               for the next roadmap item.
             </p>
@@ -81,8 +76,7 @@ export default async function StepPage({ params }: StepPageProps) {
           />
         ) : null}
 
-        {/* Official sources and support contacts */}
-        {step.sourceLinks?.length ? (
+        {step.sourceLinks?.length && step.type !== "semi" && step.id !== "accounting" ? (
           <SourceSupportPanel
             title="Official guidance and support"
             description="Use these sources to verify requirements and reach the right BC support channel."
@@ -91,23 +85,23 @@ export default async function StepPage({ params }: StepPageProps) {
           />
         ) : null}
 
-        {/* RIGHT: AI permit finder for licenses, embedded forms for others, or info panel */}
+        <StepCompleteButton stepId={id} />
+
         <div>
           {step.id === "licenses" ? (
             <LicensesPanel />
-          ) : hasForms ? (
+          ) : step.id === "accounting" ? null : hasForms ? (
             <FormsEmbed forms={step.forms!} />
-          ) : (
+          ) : step.type !== "semi" ? (
             <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
               <h3 className="text-lg font-semibold text-gray-900">Information</h3>
-              <p className="mt-3 text-gray-700">
+              <p className="mt-3 leading-relaxed text-gray-700">
                 This step is guidance-only. Review the details on the left and proceed when
                 ready.
               </p>
             </div>
-          )}
+          ) : null}
         </div>
-        <StepCompleteButton stepId={id} />
       </div>
     </main>
   );
