@@ -11,7 +11,7 @@ const plusJakarta = Plus_Jakarta_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "BuildCanada",
+  title: "BuildBeaver",
   description: "Start your business from idea to launch.",
 };
 

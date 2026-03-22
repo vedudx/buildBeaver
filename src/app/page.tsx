@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const STEPS = [
   {
@@ -74,17 +75,19 @@ export default function HomePage() {
       <header className="relative z-20 border-b border-red-950/10 bg-white/70 backdrop-blur-md">
         <div className="mx-auto flex h-16 max-w-6xl items-center justify-between px-5 md:px-8">
           <Link href="/" className="flex items-center gap-2">
-            <span
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-gradient-to-br from-red-800 to-red-950 text-lg text-white shadow-md shadow-red-900/30"
-              aria-hidden
-            >
-              🦫
-            </span>
+            <Image
+              src="/logo.png"
+              alt="BuildBeaver logo"
+              width={36}
+              height={36}
+              className="rounded-xl"
+              priority
+            />
             <div className="leading-tight">
-              <span className="block text-sm font-bold tracking-tight text-red-950">
-                BuildCanada
+              <span className="block text-sm font-bold tracking-tight text-emerald-900">
+                BuildBeaver
               </span>
-              <span className="text-[11px] font-medium text-slate-500">by BuildBeaver</span>
+              <span className="text-[11px] font-medium text-slate-500">by Maple Stack</span>
             </div>
           </Link>
           <nav className="flex items-center gap-2 md:gap-4">
@@ -271,7 +274,7 @@ export default function HomePage() {
         </section>
 
         <footer className="border-t border-slate-200 bg-white py-8 text-center text-sm text-slate-500">
-          <p>BuildCanada · BuildBeaver · For informational guidance only</p>
+          <p>BuildBeaver · Maple Stack · For informational guidance only</p>
         </footer>
       </main>
     </div>

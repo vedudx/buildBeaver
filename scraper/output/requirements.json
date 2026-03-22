@@ -1,0 +1,148 @@
+{
+  "_meta": {
+    "tool": "BuildBeaver Permit Extractor",
+    "version": "1.0.0",
+    "strategy": "api-first",
+    "generatedAt": "2026-03-22T18:27:56.182Z"
+  },
+  "sources": [
+    {
+      "source": "bc-data-catalogue",
+      "url": "https://catalogue.data.gov.bc.ca/api/3/action/package_search?q=bakery%20permit&rows=5",
+      "count": 5
+    },
+    {
+      "source": "bc-registries-api",
+      "url": "https://bcregistry.ca",
+      "count": 2
+    }
+  ],
+  "totalRequirements": 7,
+  "results": [
+    {
+      "source": "bc-data-catalogue",
+      "sourceUrl": "https://catalogue.data.gov.bc.ca/api/3/action/package_search?q=bakery%20permit&rows=5",
+      "extractedAt": "2026-03-22T18:27:38.820Z",
+      "language": "en",
+      "businessType": "bakery",
+      "province": "BC",
+      "requirements": [
+        {
+          "id": "bcdc-fef4b3ac-2cfc-4d30-afa7-2f29d9d25a10",
+          "title": "MTA - Mineral Reserve Sites Business View",
+          "description": "~~~~~~~~~~~~Defines areas within the province of British Columbia where mineral, placer and coal titles are restricted and placer titles are permitted. This business view contains a detailed set of attributes.\n\nA reserve is established by a B.C. Regulation of the Chief Gold Commissioner under\n- Section 22 of the Mineral Tenure Act: Mineral reserves \n- Section 21 of the Coal Act: Coal land reserves\nand it is the legal instrument used to prevent or restrict access to mineral, placer and coal lands",
+          "authority": "BC Data Catalogue",
+          "category": "provincial",
+          "applicableTo": [
+            "bakery"
+          ],
+          "conditions": [],
+          "links": [
+            "https://catalogue.data.gov.bc.ca/dataset/mta-mineral-reserve-sites-business-view"
+          ]
+        },
+        {
+          "id": "bcdc-1d379ceb-a13c-488b-83d7-c73754ad3db0",
+          "title": "OrgBook BC API",
+          "description": "Anyone is able to use OrgBook BC data in their own services. Rather than needing to use the OrgBook BC website interface, the data is available directly from OrgBook BC using what developers call an API. Your developers could use this, for example, to integrate OrgBook BC data into your business processes.",
+          "authority": "BC Data Catalogue",
+          "category": "provincial",
+          "applicableTo": [
+            "bakery"
+          ],
+          "conditions": [],
+          "links": [
+            "https://catalogue.data.gov.bc.ca/dataset/orgbookbcapi"
+          ]
+        },
+        {
+          "id": "bcdc-a39ccd61-725b-4031-b586-4c41979994d7",
+          "title": "MTA - Mineral Reserve Sites Business View - Operational Database",
+          "description": "This dataset is specific to the Mineral Titles Online IMF2 map viewer. While this version is not available, a public version of the data is accessible here: https://catalogue.data.gov.bc.ca/dataset/fef4b3ac-2cfc-4d30-afa7-2f29d9d25a10\r\n\r\nDefines areas within the province of British Columbia where mineral, placer and coal titles are restricted and placer titles are permitted. This business view contains a detailed set of attributes. In addition, the placer designated claim and placer designated l",
+          "authority": "BC Data Catalogue",
+          "category": "provincial",
+          "applicableTo": [
+            "bakery"
+          ],
+          "conditions": [],
+          "links": [
+            "https://catalogue.data.gov.bc.ca/dataset/mta-mineral-reserve-sites-business-view-operational-database"
+          ]
+        },
+        {
+          "id": "bcdc-4723ed1c-9a37-4d13-b2b6-6c7dc4be1882",
+          "title": "BCTS Cut Permit / Road Permit Regulation - Blocks",
+          "description": "These are the planned harvest blocks where BC Timber Sales (BCTS) identifies sustainable harvest units that provide the cost and price benchmarks for timber harvested from public land in British Columbia. ",
+          "authority": "BC Data Catalogue",
+          "category": "provincial",
+          "applicableTo": [
+            "bakery"
+          ],
+          "conditions": [],
+          "links": [
+            "https://catalogue.data.gov.bc.ca/dataset/bcts-cut-permit-road-permit-regulation-blocks"
+          ]
+        },
+        {
+          "id": "bcdc-4876fb83-ce33-4cf8-9c13-7fdeb2f39cf6",
+          "title": "Forest Tenure Cut Permit Polygons",
+          "description": "\"DEPRECATED - Layers prefaced with FTEN are updated and maintained on an on-going and continuous basis as tenures are issued. This is the spatial layer reflecting operational activities.\r\n  \r\nThe spatial layer for a cut permit, which is a legal area cleared by the Ministry of Forests (that is, no other claims for the land exist) for harvesting purposes. This corresponds to the outlined areas on the Exhibit A maps. Contains cutting permits for Forest Licence(A01), Tree Farm Licence(A02), Timber S",
+          "authority": "BC Data Catalogue",
+          "category": "provincial",
+          "applicableTo": [
+            "bakery"
+          ],
+          "conditions": [],
+          "links": [
+            "https://catalogue.data.gov.bc.ca/dataset/forest-tenure-cut-permit-polygons"
+          ]
+        }
+      ]
+    },
+    {
+      "source": "bc-registries-api",
+      "sourceUrl": "https://bcregistry.ca",
+      "extractedAt": "2026-03-22T18:27:40.010Z",
+      "language": "en",
+      "businessType": "bakery",
+      "province": "BC",
+      "requirements": [
+        {
+          "id": "bcr-name-registration",
+          "title": "BC Business Name Registration",
+          "description": "Register your business name through BC Registries. Required for all businesses operating under a name other than the owner's legal name.",
+          "authority": "BC Registries and Online Services",
+          "category": "provincial",
+          "applicableTo": [
+            "bakery"
+          ],
+          "conditions": [
+            "Operating under a trade name"
+          ],
+          "links": [
+            "https://www.bcregistry.gov.bc.ca/",
+            "https://www.bcregistry.gov.bc.ca/businesses/create"
+          ],
+          "estimatedCost": "$40 (sole proprietorship), $350+ (incorporation)",
+          "estimatedTimeline": "1-3 business days"
+        },
+        {
+          "id": "bcr-name-request",
+          "title": "BC Name Request",
+          "description": "Submit a Name Request to reserve your business name before registration.",
+          "authority": "BC Registries and Online Services",
+          "category": "provincial",
+          "applicableTo": [
+            "bakery"
+          ],
+          "conditions": [],
+          "links": [
+            "https://www.bcregistry.gov.bc.ca/businesses/create/name-request"
+          ],
+          "estimatedCost": "$30",
+          "estimatedTimeline": "2-5 business days"
+        }
+      ]
+    }
+  ]
+}
