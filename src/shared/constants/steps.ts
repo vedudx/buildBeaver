@@ -5,13 +5,26 @@ export const STEP_CONFIGS: StepConfig[] = [
     id: "structure",
     title: "Choose Business Structure",
     shortExplanation:
-      "Pick the legal structure that fits your risk, tax, and growth needs.",
+      "Your legal structure affects taxes, liability, and registration. Decide first, then enter your details below to generate copy-ready information for BC registration.",
     bulletPoints: [
-      "Compare sole proprietorship vs corporation.",
-      "Review tax implications and liability protection.",
-      "Choose a structure before registration steps.",
+      "Sole proprietorship: simple, low cost, but you're personally liable for business debts.",
+      "Corporation: separate legal entity, liability protection, higher setup cost (~$350+ in BC).",
+      "You’ll need your business name and address for registration—gather them here.",
     ],
-    type: "info",
+    optionalLink: {
+      href: "https://www2.gov.bc.ca/gov/content/employment-business/business/managing-a-business/small-business-resources/small-business-bc",
+      label: "Small Business BC — Structure Guide",
+    },
+    forms: [
+      {
+        title: "BC Business Structure Guide",
+        href: "https://www2.gov.bc.ca/gov/content/employment-business/business/managing-a-business/permits-licences/business-licence",
+        authority: "BC Government",
+        embeddable: false,
+      },
+    ],
+    type: "form",
+    formFields: ["ownership_type", "business_name", "address"],
   },
   {
     id: "register_business",
