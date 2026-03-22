@@ -53,7 +53,9 @@ export default async function StepPage({ params }: StepPageProps) {
 
         {step.type === "form" ? <FormAssistant step={step} /> : null}
 
-          {step.type === "semi" ? <LicensesGuidance /> : null}
+        {step.type === "semi" ? <LicensesChecklist /> : null}
+
+        {step.type === "semi" ? <LicensesGuidance /> : null}
 
         {step.type === "info" && !hasForms ? (
           <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm sm:p-8">
@@ -65,32 +67,30 @@ export default async function StepPage({ params }: StepPageProps) {
           </div>
         ) : null}
 
-          {step.sourceLinks?.length && step.type !== "semi" ? (
-            <SourceSupportPanel
-              title="Official guidance and support"
-              description="Use these sources to verify requirements and reach the right BC support channel."
-              links={step.sourceLinks}
-              contacts={step.supportContacts}
-            />
-          ) : null}
-
-          <StepCompleteButton stepId={id} />
-        </div>
-
-        {/* RIGHT: embedded forms or fallback info panel */}
-        <div>
-          {hasForms ? (
+        {hasForms ? (
+          <section className="w-full min-w-0">
+            <h2 className="sr-only">Forms and external resources</h2>
             <FormsEmbed forms={step.forms!} />
-          ) : step.type !== "semi" ? (
-            <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-              <h3 className="text-lg font-semibold text-gray-900">Information</h3>
-              <p className="mt-3 text-gray-700">
-                This step is guidance-only. Review the details on the left and proceed when
-                ready.
-              </p>
-            </div>
-          ) : null}
-        </div>
+          </section>
+        ) : step.type !== "info" && step.type !== "semi" ? (
+          <div className="rounded-xl border border-dashed border-gray-200 bg-gray-50/80 p-6 sm:p-8">
+            <p className="text-sm leading-relaxed text-gray-600">
+              No embedded form links for this step — use the guidance and links above, then continue
+              your roadmap when ready.
+            </p>
+          </div>
+        ) : null}
+
+        {step.sourceLinks?.length && step.type !== "semi" ? (
+          <SourceSupportPanel
+            title="Official guidance and support"
+            description="Use these sources to verify requirements and reach the right BC support channel."
+            links={step.sourceLinks}
+            contacts={step.supportContacts}
+          />
+        ) : null}
+
+        <StepCompleteButton stepId={id} />
       </div>
     </main>
   );
