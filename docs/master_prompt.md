@@ -7,7 +7,7 @@ The app should:
 1. Ask a few questions about the business
 2. Show a step-by-step roadmap (steps 1–6)
 3. Provide guidance for each step
-4. Include a "Form Assistant" for key steps that generates copy-ready answers
+4. Include a "Form Assistan for key steps that generates copy-ready answers
 
 This is a hackathon MVP and must be simple, fast, and demo-ready.
 
