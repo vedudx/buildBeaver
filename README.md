@@ -12,6 +12,18 @@
 | --------------------------------- | --------------------------------- | -------------------------------- |
 | ![Landing page](public/web_1.png) | ![Roadmap page](public/web_2.png) | ![Finish page](public/web_3.png) |
 
+## The Problem
+
+Starting a business in B.C. means navigating dozens of disconnected government websites, forms, and agencies — BC Registries, CRA, eTaxBC, WorkSafeBC, municipal licensing, and more. It's easy to miss a step, hit the wrong portal, or waste hours figuring out what even applies to your situation.
+
+BuildBeaver puts it all in one place: a single guided flow that knows your business type and location, filters out irrelevant steps, and hands you the right links and prefilled form content at each stage.
+
+## The Problem
+
+Starting a business in B.C. means navigating dozens of disconnected government websites, forms, and agencies — BC Registries, CRA, eTaxBC, WorkSafeBC, and local permit offices, to name a few. There's no single place that tells you what to do, in what order, or what information you'll need.
+
+BuildBeaver solves this by bringing everything into one guided flow: the right steps, the right links, and an AI assistant to answer questions along the way.
+
 ## Overview
 
 BuildBeaver walks users through an 8-step business setup roadmap, providing clear guidance and copy-ready form outputs for each registration step. No signup required — data stays in the browser.
