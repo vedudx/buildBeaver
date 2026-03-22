@@ -6,6 +6,7 @@ import { IntakeProvider } from "@/entities/intake/model/intake-context";
 import { FormDataProvider } from "@/entities/form/model/form-context";
 import { ProgressProvider } from "@/entities/progress/model/progress-context";
 import { SiteHeader } from "@/shared/ui/site-header";
+import { ActiveFieldProvider } from "@/entities/form/model/active-field-context";
 import { ChatbotButton } from "@/features/chatbot/ui/chatbot-button";
 
 const plusJakarta = Plus_Jakarta_Sans({
@@ -30,7 +31,7 @@ type RootLayoutProps = {
 
 export default function RootLayout({ children }: RootLayoutProps) {
   return (
-    <html lang="en">
+    <html lang="en" className={plusJakarta.variable}>
       <body className="font-sans antialiased">
         <IntakeProvider>
           <FormDataProvider>

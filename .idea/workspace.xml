@@ -6,6 +6,8 @@
   <component name="ChangeListManager">
     <list default="true" id="152d7a9d-2d8a-437b-a9a1-b9d9cafb5f7f" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/next-env.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/next-env.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,12 +39,8 @@
               <option name="branches">
                 <list>
                   <RecentBranch>
-                    <option name="branchName" value="main" />
-                    <option name="lastUsedInstant" value="1774204643" />
-                  </RecentBranch>
-                  <RecentBranch>
-                    <option name="branchName" value="emma" />
-                    <option name="lastUsedInstant" value="1774204617" />
+                    <option name="branchName" value="ai_chatbot" />
+                    <option name="lastUsedInstant" value="1774205340" />
                   </RecentBranch>
                 </list>
               </option>
@@ -56,9 +54,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 0
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 0
+}</component>
   <component name="ProjectId" id="3BJOEsXbvTRNOQuPHNaOXEluTro" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -69,7 +67,6 @@
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
     "last_opened_file_path": "/Users/eunmi/Projects/hackathon/buildBeaver",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.tslint": "true",
@@ -88,7 +85,7 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1774203597814</updated>
-      <workItem from="1774203599686" duration="1618000" />
+      <workItem from="1774203599686" duration="2842000" />
     </task>
     <servers />
   </component>

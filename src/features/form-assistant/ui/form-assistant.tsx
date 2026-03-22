@@ -3,6 +3,7 @@
 import React, { useMemo } from "react";
 import { useIntake } from "@/entities/intake/model/intake-context";
 import { useFormData } from "@/entities/form/model/form-context";
+import { useActiveField } from "@/entities/form/model/active-field-context";
 import type {
   FormFieldKey,
   GstThresholdAnswer,
@@ -86,6 +87,7 @@ const labelClassName = "mb-1.5 block text-sm font-medium text-neutral-800";
 export function FormAssistant({ step }: FormAssistantProps) {
   const { intakeData } = useIntake();
   const { formData, setFormData } = useFormData();
+  const { setActiveField } = useActiveField();
 
   // Seed empty fields from intake on first render (does not overwrite saved answers)
   const form: FormState = {
@@ -186,6 +188,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
                   type="text"
                   value={form.business_name}
                   onChange={(e) => updateField("business_name", e.target.value)}
+                  onFocus={() => setActiveField("business_name")}
                   placeholder="e.g. Vedant Bakery Inc."
                   autoComplete="organization"
                 />
@@ -205,6 +208,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
                   onChange={(e) =>
                     updateField("ownership_type", e.target.value as OwnershipType)
                   }
+                  onFocus={() => setActiveField("ownership_type")}
                 >
                   <option value="sole proprietorship">Sole Proprietorship</option>
                   <option value="corporation">Corporation</option>
@@ -224,6 +228,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
                   type="text"
                   value={form.address}
                   onChange={(e) => updateField("address", e.target.value)}
+                  onFocus={() => setActiveField("address")}
                   placeholder="e.g. Vancouver, BC"
                   autoComplete="street-address"
                 />
@@ -242,6 +247,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
                   type="text"
                   value={form.start_date}
                   onChange={(e) => updateField("start_date", e.target.value)}
+                  onFocus={() => setActiveField("start_date")}
                   placeholder="e.g. March 2026"
                 />
               </div>
@@ -266,7 +272,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
                       <button
                         key={value}
                         type="button"
-                        onClick={() => updateField("gst_threshold", value)}
+                        onClick={() => { setActiveField("gst_threshold"); updateField("gst_threshold", value); }}
                         className={`rounded-lg border px-4 py-2 text-sm font-medium transition ${
                           selected
                             ? "border-red-800 bg-red-50 text-red-950"
