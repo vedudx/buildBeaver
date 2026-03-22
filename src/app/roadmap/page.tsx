@@ -12,12 +12,12 @@ export default function RoadmapPage() {
           <li key={step.id}>
             <Link
               href={`/step/${step.id}`}
-              className="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm transition hover:border-emerald-300 hover:bg-emerald-50"
+              className="flex items-center justify-between rounded-lg border border-gray-200 bg-white px-4 py-3 shadow-sm transition hover:border-red-300 hover:bg-red-50"
             >
               <span className="font-medium text-gray-900">
                 [{index + 1}] {step.title}
               </span>
-              <span className="text-sm text-emerald-700">Open</span>
+              <span className="text-sm text-red-800">Open</span>
             </Link>
           </li>
         ))}

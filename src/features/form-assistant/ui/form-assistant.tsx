@@ -2,7 +2,13 @@
 
 import { useMemo, useState } from "react";
 import { useIntake } from "@/entities/intake/model/intake-context";
-import type { OwnershipType, StepConfig } from "@/shared/types/business";
+import { useFormData } from "@/entities/form/model/form-context";
+import type {
+  FormFieldKey,
+  GstThresholdAnswer,
+  OwnershipType,
+  StepConfig,
+} from "@/shared/types/business";
 
 type FormAssistantProps = {
   step: StepConfig;
@@ -13,37 +19,129 @@ type FormState = {
   ownership_type: OwnershipType;
   address: string;
   start_date: string;
+  gst_threshold: GstThresholdAnswer;
 };
 
-const fieldLabels: Record<keyof FormState, string> = {
+/** Labels used in generated output (title case, per product copy) */
+const fieldLabels: Record<FormFieldKey, string> = {
   business_name: "Business Name",
   ownership_type: "Ownership Type",
   address: "Address",
   start_date: "Start Date",
+  gst_threshold: "Over $30k/year (taxable supplies)",
 };
+
+/** Wording from docs/form_questions (visible labels; output uses `fieldLabels`) */
+const formQuestionLabels: Partial<Record<FormFieldKey, string>> = {
+  business_name: "What is your business name?",
+  ownership_type: "What type of business structure?",
+  address: "What is your business address?",
+  start_date: "When did your business start operating?",
+};
+
+/** Helper text under each question */
+const fieldHelp: Partial<Record<FormFieldKey, string>> = {
+  business_name: "Prefilled from intake when available.",
+  ownership_type: "Choose Sole Proprietorship or Corporation.",
+  address: "City and province are fine for a first draft.",
+  start_date: "Use a specific date or month and year.",
+  gst_threshold:
+    "CRA uses $30,000 in four consecutive calendar quarters as a common GST/HST threshold.",
+};
+
+const stepPanelCopy: Record<string, { title: string; blurb: string }> = {
+  register_business: {
+    title: "Registration details",
+    blurb:
+      "Answer a few questions to produce copy-ready lines you can paste into BC registration flows.",
+  },
+  business_number: {
+    title: "CRA Business Number details",
+    blurb:
+      "We’ll reuse what you already entered where possible and only ask for what’s new for your BN application.",
+  },
+};
+
+function formatOwnershipLabel(value: OwnershipType): string {
+  return value === "sole proprietorship" ? "Sole Proprietorship" : "Corporation";
+}
+
+function gstRegistrationLine(answer: GstThresholdAnswer): string {
+  if (answer === "yes") {
+    return "GST/HST registration: Required (over typical small-supplier threshold)";
+  }
+  return "GST/HST registration: Optional (under typical small-supplier threshold)";
+}
+
+const inputClassName =
+  "w-full rounded-lg border border-neutral-200 bg-white px-3 py-2.5 text-sm text-neutral-900 shadow-sm outline-none transition placeholder:text-neutral-400 focus:border-emerald-500/80 focus:ring-2 focus:ring-emerald-500/20";
+
+const labelClassName = "mb-1.5 block text-sm font-medium text-neutral-800";
 
 export function FormAssistant({ step }: FormAssistantProps) {
   const { intakeData } = useIntake();
-  const [form, setForm] = useState<FormState>({
-    business_name: intakeData.businessName || "",
-    ownership_type: "sole proprietorship",
-    address: intakeData.location ? `${intakeData.location}, Canada` : "",
-    start_date: "",
-  });
+  const { formData, setFormData } = useFormData();
+
+  // Seed empty fields from intake on first render (does not overwrite saved answers)
+  const form: FormState = {
+    business_name:
+      formData.business_name || intakeData.businessName || "",
+    ownership_type: formData.ownership_type,
+    address:
+      formData.address ||
+      (intakeData.location ? `${intakeData.location}, Canada` : ""),
+    start_date: formData.start_date,
+    gst_threshold: formData.gst_threshold,
+  };
+
   const [output, setOutput] = useState("");
   const [copied, setCopied] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
   const fields = useMemo(() => step.formFields ?? [], [step.formFields]);
 
+  const panel = stepPanelCopy[step.id] ?? {
+    title: "Form Assistant",
+    blurb: "Fill the fields and generate copy-ready answers.",
+  };
+
   function updateField<K extends keyof FormState>(key: K, value: FormState[K]) {
-    setForm((prev) => ({ ...prev, [key]: value }));
+    setFormData({ [key]: value });
     setCopied(false);
   }
 
+  function buildOutputLines(): string[] {
+    const lines: string[] = [];
+    for (const field of fields) {
+      if (field === "business_name") {
+        lines.push(`${fieldLabels.business_name}: ${form.business_name.trim() || "—"}`);
+      } else if (field === "ownership_type") {
+        lines.push(
+          `${fieldLabels.ownership_type}: ${formatOwnershipLabel(form.ownership_type)}`,
+        );
+      } else if (field === "address") {
+        lines.push(`${fieldLabels.address}: ${form.address.trim() || "—"}`);
+      } else if (field === "start_date") {
+        lines.push(`${fieldLabels.start_date}: ${form.start_date.trim() || "—"}`);
+      } else if (field === "gst_threshold") {
+        const rev =
+          form.gst_threshold === "yes"
+            ? "Yes — expect over $30,000/year in taxable supplies"
+            : "No — under $30,000/year in taxable supplies";
+        lines.push(`${fieldLabels.gst_threshold}: ${rev}`);
+        lines.push(gstRegistrationLine(form.gst_threshold));
+      }
+    }
+    return lines;
+  }
+
   function handleGenerate() {
-    const lines = fields.map((field) => `${fieldLabels[field]}: ${form[field] || "-"}`);
-    setOutput(lines.join("\n"));
+    setIsGenerating(true);
     setCopied(false);
+    window.setTimeout(() => {
+      setOutput(buildOutputLines().join("\n"));
+      setIsGenerating(false);
+    }, 400);
   }
 
   async function handleCopy() {
@@ -53,98 +151,180 @@ export function FormAssistant({ step }: FormAssistantProps) {
   }
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
-      <h3 className="text-lg font-semibold text-gray-900">Form Assistant</h3>
-      <p className="mt-2 text-sm text-gray-600">
-        Fill the fields, generate answers, and copy all formatted output.
-      </p>
-
-      <div className="mt-5 space-y-4">
-        {fields.includes("business_name") ? (
-          <label className="block">
-            <span className="mb-1 block text-sm font-medium text-gray-700">
-              Business Name
-            </span>
-            <input
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
-              type="text"
-              value={form.business_name}
-              onChange={(event) => updateField("business_name", event.target.value)}
-              placeholder="Vedant Bakery Inc."
-            />
-          </label>
-        ) : null}
-
-        {fields.includes("ownership_type") ? (
-          <label className="block">
-            <span className="mb-1 block text-sm font-medium text-gray-700">
-              Ownership Type
-            </span>
-            <select
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
-              value={form.ownership_type}
-              onChange={(event) =>
-                updateField("ownership_type", event.target.value as OwnershipType)
-              }
-            >
-              <option value="sole proprietorship">Sole Proprietorship</option>
-              <option value="corporation">Corporation</option>
-            </select>
-          </label>
-        ) : null}
-
-        {fields.includes("address") ? (
-          <label className="block">
-            <span className="mb-1 block text-sm font-medium text-gray-700">Address</span>
-            <input
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
-              type="text"
-              value={form.address}
-              onChange={(event) => updateField("address", event.target.value)}
-              placeholder="Vancouver, BC"
-            />
-          </label>
-        ) : null}
-
-        {fields.includes("start_date") ? (
-          <label className="block">
-            <span className="mb-1 block text-sm font-medium text-gray-700">
-              Start Date
-            </span>
-            <input
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm outline-none ring-emerald-200 focus:ring"
-              type="text"
-              value={form.start_date}
-              onChange={(event) => updateField("start_date", event.target.value)}
-              placeholder="March 2026"
-            />
-          </label>
-        ) : null}
+    <div className="overflow-hidden rounded-2xl border border-neutral-200/80 bg-white shadow-sm ring-1 ring-black/[0.04]">
+      <div className="border-b border-neutral-100 bg-neutral-50/80 px-6 py-5">
+        <p className="text-xs font-semibold uppercase tracking-wide text-emerald-700">
+          Form Assistant
+        </p>
+        <h3 className="mt-1 text-lg font-semibold tracking-tight text-neutral-900">
+          {panel.title}
+        </h3>
+        <p className="mt-2 text-sm leading-relaxed text-neutral-600">{panel.blurb}</p>
       </div>
 
-      <div className="mt-6 flex flex-wrap gap-3">
+      <div className="space-y-6 px-6 py-6">
+        {fields.map((field) => {
+          const help = fieldHelp[field];
+          if (field === "business_name") {
+            return (
+              <div key={field}>
+                <label className={labelClassName}>
+                  {formQuestionLabels.business_name ?? fieldLabels.business_name}
+                </label>
+                {help ? <p className="mb-2 text-xs text-neutral-500">{help}</p> : null}
+                <input
+                  className={inputClassName}
+                  type="text"
+                  value={form.business_name}
+                  onChange={(e) => updateField("business_name", e.target.value)}
+                  placeholder="e.g. Vedant Bakery Inc."
+                  autoComplete="organization"
+                />
+              </div>
+            );
+          }
+          if (field === "ownership_type") {
+            return (
+              <div key={field}>
+                <label className={labelClassName}>
+                  {formQuestionLabels.ownership_type ?? fieldLabels.ownership_type}
+                </label>
+                {help ? <p className="mb-2 text-xs text-neutral-500">{help}</p> : null}
+                <select
+                  className={inputClassName}
+                  value={form.ownership_type}
+                  onChange={(e) =>
+                    updateField("ownership_type", e.target.value as OwnershipType)
+                  }
+                >
+                  <option value="sole proprietorship">Sole Proprietorship</option>
+                  <option value="corporation">Corporation</option>
+                </select>
+              </div>
+            );
+          }
+          if (field === "address") {
+            return (
+              <div key={field}>
+                <label className={labelClassName}>
+                  {formQuestionLabels.address ?? fieldLabels.address}
+                </label>
+                {help ? <p className="mb-2 text-xs text-neutral-500">{help}</p> : null}
+                <input
+                  className={inputClassName}
+                  type="text"
+                  value={form.address}
+                  onChange={(e) => updateField("address", e.target.value)}
+                  placeholder="e.g. Vancouver, BC"
+                  autoComplete="street-address"
+                />
+              </div>
+            );
+          }
+          if (field === "start_date") {
+            return (
+              <div key={field}>
+                <label className={labelClassName}>
+                  {formQuestionLabels.start_date ?? fieldLabels.start_date}
+                </label>
+                {help ? <p className="mb-2 text-xs text-neutral-500">{help}</p> : null}
+                <input
+                  className={inputClassName}
+                  type="text"
+                  value={form.start_date}
+                  onChange={(e) => updateField("start_date", e.target.value)}
+                  placeholder="e.g. March 2026"
+                />
+              </div>
+            );
+          }
+          if (field === "gst_threshold") {
+            return (
+              <div key={field}>
+                <label className={labelClassName}>
+                  Do you expect to earn more than $30,000 per year?
+                </label>
+                {help ? <p className="mb-3 text-xs text-neutral-500">{help}</p> : null}
+                <div className="flex flex-wrap gap-2">
+                  {(
+                    [
+                      { value: "yes" as const, label: "Yes" },
+                      { value: "no" as const, label: "No" },
+                    ] as const
+                  ).map(({ value, label }) => {
+                    const selected = form.gst_threshold === value;
+                    return (
+                      <button
+                        key={value}
+                        type="button"
+                        onClick={() => updateField("gst_threshold", value)}
+                        className={`rounded-lg border px-4 py-2 text-sm font-medium transition ${
+                          selected
+                            ? "border-emerald-600 bg-emerald-50 text-emerald-900"
+                            : "border-neutral-200 bg-white text-neutral-700 hover:border-neutral-300"
+                        }`}
+                      >
+                        {label}
+                      </button>
+                    );
+                  })}
+                </div>
+                <p
+                  className={`mt-3 rounded-lg border px-3 py-2 text-xs leading-relaxed ${
+                    form.gst_threshold === "yes"
+                      ? "border-amber-200 bg-amber-50 text-amber-950"
+                      : "border-neutral-200 bg-neutral-50 text-neutral-700"
+                  }`}
+                >
+                  {form.gst_threshold === "yes"
+                    ? "Over the threshold, GST/HST registration is typically required (verify with CRA or an accountant)."
+                    : "Below the threshold, GST/HST registration is often optional—you can still register voluntarily."}
+                </p>
+              </div>
+            );
+          }
+          return null;
+        })}
+      </div>
+
+      <div className="flex flex-wrap items-center gap-3 border-t border-neutral-100 bg-neutral-50/50 px-6 py-4">
         <button
           type="button"
           onClick={handleGenerate}
-          className="rounded-md bg-emerald-600 px-4 py-2 text-sm font-semibold text-white hover:bg-emerald-700"
+          disabled={isGenerating}
+          className="inline-flex items-center justify-center gap-2 rounded-lg bg-emerald-600 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:opacity-70"
         >
-          Generate Answers
+          {isGenerating ? (
+            <>
+              <span
+                className="size-4 animate-spin rounded-full border-2 border-white/30 border-t-white"
+                aria-hidden
+              />
+              Generating…
+            </>
+          ) : (
+            "Generate Answers"
+          )}
         </button>
         <button
           type="button"
           onClick={handleCopy}
           disabled={!output}
-          className="rounded-md border border-gray-300 px-4 py-2 text-sm font-semibold text-gray-800 hover:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-50"
+          className="rounded-lg border border-neutral-200 bg-white px-4 py-2.5 text-sm font-semibold text-neutral-800 shadow-sm transition hover:bg-neutral-50 disabled:cursor-not-allowed disabled:opacity-50"
         >
           Copy All
         </button>
-        {copied ? <span className="self-center text-sm text-emerald-700">Copied.</span> : null}
+        {copied ? (
+          <span className="text-sm font-medium text-emerald-700">Copied to clipboard</span>
+        ) : null}
       </div>
 
-      <div className="mt-5 rounded-md bg-gray-50 p-4">
-        <p className="mb-2 text-sm font-medium text-gray-700">Generated Output</p>
-        <pre className="whitespace-pre-wrap text-sm text-gray-800">
-          {output || "No output yet. Click Generate Answers."}
+      <div className="border-t border-neutral-100 px-6 py-5">
+        <p className="text-xs font-semibold uppercase tracking-wide text-neutral-500">
+          Generated output
+        </p>
+        <pre className="mt-3 max-h-64 overflow-auto whitespace-pre-wrap rounded-xl border border-neutral-200 bg-neutral-50/80 p-4 font-mono text-sm leading-relaxed text-neutral-800">
+          {output || "No output yet — fill the fields and click Generate Answers."}
         </pre>
       </div>
     </div>
