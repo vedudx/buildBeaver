@@ -94,7 +94,6 @@ export default async function StepPage({ params }: StepPageProps) {
             </div>
           ) : null}
         </div>
-      </div>
     </main>
   );
 }

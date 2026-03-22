@@ -35,11 +35,13 @@ export default function RootLayout({ children }: RootLayoutProps) {
       <body className="font-sans antialiased">
         <IntakeProvider>
           <FormDataProvider>
+            <ActiveFieldProvider>
             <ProgressProvider>
               <SiteHeader />
               {children}
               <ChatbotButton />
             </ProgressProvider>
+            </ActiveFieldProvider>
           </FormDataProvider>
         </IntakeProvider>
       </body>
