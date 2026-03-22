@@ -1,7 +1,8 @@
 "use client";
 
-import { useMemo, useState } from "react";
+import { useMemo } from "react";
 import { useIntake } from "@/entities/intake/model/intake-context";
+import { useFormData } from "@/entities/form/model/form-context";
 import type {
   FormFieldKey,
   GstThresholdAnswer,
@@ -79,13 +80,20 @@ const labelClassName = "mb-1.5 block text-sm font-medium text-neutral-800";
 
 export function FormAssistant({ step }: FormAssistantProps) {
   const { intakeData } = useIntake();
-  const [form, setForm] = useState<FormState>({
-    business_name: intakeData.businessName || "",
-    ownership_type: "sole proprietorship",
-    address: intakeData.location ? `${intakeData.location}, Canada` : "",
-    start_date: "",
-    gst_threshold: "no",
-  });
+  const { formData, setFormData } = useFormData();
+
+  // Seed empty fields from intake on first render (does not overwrite saved answers)
+  const form: FormState = {
+    business_name:
+      formData.business_name || intakeData.businessName || "",
+    ownership_type: formData.ownership_type,
+    address:
+      formData.address ||
+      (intakeData.location ? `${intakeData.location}, Canada` : ""),
+    start_date: formData.start_date,
+    gst_threshold: formData.gst_threshold,
+  };
+
   const [output, setOutput] = useState("");
   const [copied, setCopied] = useState(false);
   const [isGenerating, setIsGenerating] = useState(false);
@@ -98,7 +106,7 @@ export function FormAssistant({ step }: FormAssistantProps) {
   };
 
   function updateField<K extends keyof FormState>(key: K, value: FormState[K]) {
-    setForm((prev) => ({ ...prev, [key]: value }));
+    setFormData({ [key]: value });
     setCopied(false);
   }
 
