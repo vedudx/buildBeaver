@@ -17,6 +17,15 @@ export type FormFieldKey =
 
 export type StepType = "info" | "semi" | "form";
 
+export type StepForm = {
+  title: string;
+  href: string;
+  authority: string;
+  estimatedCost?: string;
+  estimatedTimeline?: string;
+  embeddable?: boolean;
+};
+
 export type StepConfig = {
   id: string;
   title: string;
@@ -26,6 +35,7 @@ export type StepConfig = {
     href: string;
     label: string;
   };
+  forms?: StepForm[];
   type: StepType;
   formFields?: FormFieldKey[];
 };
