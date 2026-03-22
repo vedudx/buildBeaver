@@ -272,7 +272,7 @@ export default function HomePage() {
                   <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-red-100 text-xs text-red-800 shadow-[inset_0_-1px_0_rgba(0,0,0,0.06)]">
                     ✓
                   </span>{" "}
-                  Local-only data
+                  Data privacy
                 </li>
                 <li className="flex items-center gap-2">
                   <span className="inline-flex h-5 w-5 items-center justify-center rounded-md bg-red-100 text-xs text-red-800 shadow-[inset_0_-1px_0_rgba(0,0,0,0.06)]">

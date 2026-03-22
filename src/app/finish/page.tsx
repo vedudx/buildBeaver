@@ -1,8 +1,6 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
-import confetti from "canvas-confetti";
 import { useIntake } from "@/entities/intake/model/intake-context";
 import { useFormData } from "@/entities/form/model/form-context";
 import { useProgress } from "@/entities/progress/model/progress-context";
@@ -45,16 +43,6 @@ export default function FinishPage() {
     formData.ownership_type === "corporation" ? "Corporation" : "Sole Proprietorship";
 
   const gstLabel = formData.gst_threshold === "yes" ? "Yes — registered for GST" : "Not yet registered";
-
-  useEffect(() => {
-    if (!allDone) return;
-    const colors = ["#991b1b", "#16a34a", "#fbbf24", "#3b82f6", "#a855f7", "#f97316"];
-    confetti({ particleCount: 80, spread: 70, origin: { y: 0.5 }, colors, ticks: 180 });
-    setTimeout(() => {
-      confetti({ particleCount: 40, angle: 60, spread: 50, origin: { x: 0, y: 0.5 }, colors });
-      confetti({ particleCount: 40, angle: 120, spread: 50, origin: { x: 1, y: 0.5 }, colors });
-    }, 400);
-  }, [allDone]);
 
   return (
     <main className="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-5 py-12 md:px-8">
